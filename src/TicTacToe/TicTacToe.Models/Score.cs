@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TicTacToe.Models
 {
-    class Score
+    public class Score
     {
         public Guid Id { get; set; }
         public ScoreStatus Status { get; set; }

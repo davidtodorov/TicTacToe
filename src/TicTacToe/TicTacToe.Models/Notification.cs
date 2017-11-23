@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TicTacToe.Models
 {
-    class Notification
+    public class Notification
     {
         public Guid Id { get; set; }
         public NotificationState NotificationState { get; set; }
