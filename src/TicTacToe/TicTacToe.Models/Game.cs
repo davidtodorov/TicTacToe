@@ -4,14 +4,12 @@ namespace TicTacToe.Models
 {
     public class Game
     {
-        public int Id { get; set; }
+        public Guid  Id { get; set; }
         public string Name { get; set; }
-        //board
-        public State State { get; set; }
+        public string Board { get; set; }
+        public string Password { get; set; }
+        public DateTime CreationDate { get; set; }
         public Visibility Visibility { get; set; }
-        protected string Password { get; set; }
-
-
-
+        public GameState State { get; set; }
     }
 }

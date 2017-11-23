@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TicTacToe.Models
 {
-    public enum State
+    public enum GameState
     {
         WaitingForASecondPlayer,
         Xturn,
