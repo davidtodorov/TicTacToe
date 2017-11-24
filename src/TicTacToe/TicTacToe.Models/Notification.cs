@@ -6,6 +6,11 @@ namespace TicTacToe.Models
 {
     public class Notification
     {
+        public Notification()
+        {
+            this.UsersNotifications =  new List<UserNotification>();
+        }
+
         public Guid Id { get; set; }
         public NotificationState NotificationState { get; set; }
         public string DateAndTime { get; set; }
@@ -17,5 +22,7 @@ namespace TicTacToe.Models
 
         public Guid GameId { get; set; }
         public Game Game { get; set; }
+
+        public ICollection<UserNotification> UsersNotifications { get; set; }
     }
 }

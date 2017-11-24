@@ -1,4 +1,5 @@
 ﻿using System;
+using TicTacToe.Data;
 
 namespace StartUp
 {
@@ -6,7 +7,9 @@ namespace StartUp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var context = new TicTacToeDbContext();
+            
+
         }
     }
 }

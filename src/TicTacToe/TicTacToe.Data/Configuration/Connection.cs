@@ -4,8 +4,8 @@ using System.Text;
 
 namespace TicTacToe.Data.Configuration
 {
-    class Connection
+    public static class Connection
     {
-        public string ConnectionString { get; set; }
+        public const string ConnectionString = "Server=.;Database=TicTacToe; Integrated Security = true;";
     }
 }
