@@ -8,7 +8,8 @@ namespace StartUp
         static void Main(string[] args)
         {
             var context = new TicTacToeDbContext();
-            
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
 
         }
     }

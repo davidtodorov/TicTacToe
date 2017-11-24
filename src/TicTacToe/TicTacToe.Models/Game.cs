@@ -13,7 +13,7 @@ namespace TicTacToe.Models
         }
 
 
-        public Guid  Id { get; set; }
+        public int  Id { get; set; }
         public string Name { get; set; }
         public string Board { get; set; }
         public string Password { get; set; }
@@ -21,7 +21,7 @@ namespace TicTacToe.Models
         public Visibility Visibility { get; set; }
         public GameState State { get; set; }
 
-        public Guid ScoreId { get; set; }
+        public int ScoreId { get; set; }
         public Score Score { get; set; }
 
         public ICollection<User> Users { get; set; }

@@ -14,6 +14,11 @@ namespace TicTacToe.Data.Configuration
             builder
                 .Property(score => score.Id)
                 .ValueGeneratedOnAdd();
+
+            builder
+                .HasOne(score => score.Game)
+                .WithOne(game => game.Score)
+                .HasForeignKey<Score>(score => score.GameId);
         }
     }
 }

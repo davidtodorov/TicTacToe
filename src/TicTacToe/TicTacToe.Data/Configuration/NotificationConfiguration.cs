@@ -14,6 +14,7 @@ namespace TicTacToe.Data.Configuration
             builder
                 .Property(notf => notf.Id)
                 .ValueGeneratedOnAdd();
+
         }
     }
 }
