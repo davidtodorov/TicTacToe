@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TicTacToe.Models
+﻿namespace TicTacToe.Models
 {
     public enum GameState
     {
@@ -12,6 +8,5 @@ namespace TicTacToe.Models
         Xvictory,
         Ovictory,
         Draw
-
     }
 }

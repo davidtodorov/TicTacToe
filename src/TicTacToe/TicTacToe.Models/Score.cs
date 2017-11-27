@@ -1,18 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicTacToe.Models
 {
     public class Score
     {
-        public int ScoreId { get; set; }
+        public Score()
+        {
+            this.ScoreId = Guid.NewGuid();
+        }
+
+        [Key]
+        public Guid ScoreId { get; set; }
+
+        // TODO: Add validation
         public ScoreStatus ScoreStatus { get; set; }
 
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
+
+        [ForeignKey(nameof(UserId))]
         public User User { get; set; }
 
-        public int GameId { get; set; }
+        public Guid GameId { get; set; }
+
+        [ForeignKey(nameof(GameId))]
         public Game Game { get; set; }
     }
 }
