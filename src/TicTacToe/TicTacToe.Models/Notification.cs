@@ -15,10 +15,10 @@ namespace TicTacToe.Models
         public string DateAndTime { get; set; }
 
         public int DestinationUserId { get; set; }
-        public int SourceUserId { get; set; }
+        public User DestinationUser { get; set; }
 
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public int SourceUserId { get; set; }
+        public User SourceUser { get; set; }
 
         public int GameId { get; set; }
         public Game Game { get; set; }

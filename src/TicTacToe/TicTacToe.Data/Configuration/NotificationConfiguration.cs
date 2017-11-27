@@ -15,6 +15,17 @@ namespace TicTacToe.Data.Configuration
                 .Property(notf => notf.NotificationId)
                 .ValueGeneratedOnAdd();
 
+            builder
+                .HasOne(n => n.Game)
+                .WithMany(n => n.Notifications)
+                .HasForeignKey(n => n.GameId);
+
+            builder
+                .HasOne(n => n.DestinationUser)
+                .WithMany(n => n.Notifications)
+                .HasForeignKey(n => n.NotificationId);
+
+            
         }
     }
 }

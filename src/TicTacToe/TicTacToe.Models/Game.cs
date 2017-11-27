@@ -29,8 +29,7 @@ namespace TicTacToe.Models
         public int ScoreId { get; set; }
         public Score Score { get; set; }
 
-        public int NotificationId { get; set; }
-        public Notification Notification { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
         
         
 

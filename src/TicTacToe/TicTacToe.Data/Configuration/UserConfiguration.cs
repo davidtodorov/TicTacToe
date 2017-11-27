@@ -40,11 +40,6 @@ namespace TicTacToe.Data.Configuration
                 .WithOne(u => u.User)
                 .HasForeignKey(u => u.UserId);
 
-            //user - notifications
-            builder
-                .HasMany(u => u.Notifications)
-                .WithOne(u => u.User)
-                .HasForeignKey(u => u.UserId);
         }
     }
 }

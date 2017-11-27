@@ -25,10 +25,6 @@ namespace TicTacToe.Data.Configuration
                 .WithOne(g => g.Game)
                 .HasForeignKey<Score>(g => g.ScoreId);
 
-            builder
-                .HasOne(g => g.Notification)
-                .WithOne(g => g.Game)
-                .HasForeignKey<Notification>(g => g.NotificationId);
             
         }
     }
