@@ -12,7 +12,7 @@ namespace TicTacToe.Data.Configuration
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder
-                .Property(user => user.Id)
+                .Property(user => user.UserId)
                 .ValueGeneratedOnAdd();
 
             builder
@@ -24,6 +24,27 @@ namespace TicTacToe.Data.Configuration
                 .Property(user => user.LastName)
                 .HasMaxLength(50)
                 .IsRequired();
+
+
+            // RELATIONS
+
+            //user - scores
+            builder
+                .HasMany(u => u.Scores)
+                .WithOne(u => u.User)
+                .HasForeignKey(u => u.UserId);
+
+            //user - games
+            builder
+                .HasMany(u => u.Games)
+                .WithOne(u => u.User)
+                .HasForeignKey(u => u.UserId);
+
+            //user - notifications
+            builder
+                .HasMany(u => u.Notifications)
+                .WithOne(u => u.User)
+                .HasForeignKey(u => u.UserId);
         }
     }
 }

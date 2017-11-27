@@ -12,7 +12,7 @@ namespace TicTacToe.Data.Configuration
         public void Configure(EntityTypeBuilder<Notification> builder)
         {
             builder
-                .Property(notf => notf.Id)
+                .Property(notf => notf.NotificationId)
                 .ValueGeneratedOnAdd();
 
         }

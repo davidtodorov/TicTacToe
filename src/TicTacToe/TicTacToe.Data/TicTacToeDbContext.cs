@@ -26,7 +26,6 @@ namespace TicTacToe.Data
             modelBuilder.ApplyConfiguration(new NotificationConfiguration());
             modelBuilder.ApplyConfiguration(new ScoreConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new UserNotificationConfiguration());
 
         }
     }

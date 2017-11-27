@@ -7,15 +7,16 @@ namespace TicTacToe.Models
     {
         public User()
         {
-            this.UsersNotifications = new List<UserNotification>();
         }
 
-        public int Id { get; set; }
+        public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime RegistrationDate { get; set; }
         public string PhotoUrl { get; set; }
 
-        public ICollection<UserNotification> UsersNotifications { get; set; }
+        public ICollection<Score> Scores { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
+        public ICollection<Game> Games { get; set; }
     }
 }

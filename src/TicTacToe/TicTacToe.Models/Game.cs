@@ -9,11 +9,10 @@ namespace TicTacToe.Models
     {
         public Game()
         {
-            this.Users = new List<User>();
         }
 
 
-        public int  Id { get; set; }
+        public int  GameId { get; set; }
         public string Name { get; set; }
         public string Board { get; set; }
         public string Password { get; set; }
@@ -21,10 +20,20 @@ namespace TicTacToe.Models
         public Visibility Visibility { get; set; }
         public GameState State { get; set; }
 
+        public int PlayerOneId { get; set; }
+        public int? PlayerTwoId { get; set; }
+
+        public int UserId { get; set; }
+        public User User { get; set; }
+
         public int ScoreId { get; set; }
         public Score Score { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public int NotificationId { get; set; }
+        public Notification Notification { get; set; }
+        
+        
+
 
     }
 }

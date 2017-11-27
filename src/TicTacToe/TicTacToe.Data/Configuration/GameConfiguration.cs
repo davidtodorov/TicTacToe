@@ -12,13 +12,24 @@ namespace TicTacToe.Data.Configuration
         public void Configure(EntityTypeBuilder<Game> builder)
         {
             builder
-                .Property(game => game.Id)
+                .Property(game => game.GameId)
                 .ValueGeneratedOnAdd();
 
             builder
                 .Property(game => game.Name)
                 .HasMaxLength(50)
                 .IsRequired();
+
+            builder
+                .HasOne(g => g.Score)
+                .WithOne(g => g.Game)
+                .HasForeignKey<Score>(g => g.ScoreId);
+
+            builder
+                .HasOne(g => g.Notification)
+                .WithOne(g => g.Game)
+                .HasForeignKey<Notification>(g => g.NotificationId);
+            
         }
     }
 }
