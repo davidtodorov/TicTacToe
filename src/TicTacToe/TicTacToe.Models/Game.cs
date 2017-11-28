@@ -10,6 +10,7 @@ namespace TicTacToe.Models
         public Game()
         {
             this.Board = "---------";
+            this.CreationDate = DateTime.UtcNow;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,13 +23,29 @@ namespace TicTacToe.Models
         public string Board { get; set; }
 
         [Required]
+        [NotMapped]
         [MaxLength(50)]
-        public string Password { get; set; }
+        public string Password
+        {
+            get { return this.Password; }
+            set
+            {
+                if ((int)Visibility == 1 || (int)Visibility == 2 )
+                {
+                    this.Password = value;
+                }
+                else
+                {
+                    this.Password = null;
+                }
+            } 
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        }
+
         public DateTime CreationDate { get; set; }
 
         [Required]
+        [Range(0, 2)]
         public VisibilityType Visibility { get; set; }
 
         [Range(1, 6)]
