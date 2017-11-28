@@ -32,7 +32,7 @@ namespace TicTacToe.Models
         [ForeignKey(nameof(PlayerOneId))]
         public User PlayerOne { get; set; }
 
-        public Guid PlayerTwoId { get; set; }
+        public Guid? PlayerTwoId { get; set; }
 
         [ForeignKey(nameof(PlayerTwoId))]
         public User PlayerTwo { get; set; }

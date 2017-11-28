@@ -12,8 +12,6 @@ namespace TicTacToe.Models
             this.RegistrationDate = DateTime.UtcNow;
 
             this.Scores = new List<Score>();
-            this.Notifications = new List<Notification>();
-            this.Games = new List<Game>();
         }
 
         [Key]
@@ -33,9 +31,5 @@ namespace TicTacToe.Models
         public DateTime RegistrationDate { get; set; }
 
         public ICollection<Score> Scores { get; set; }
-
-        public ICollection<Notification> Notifications { get; set; }
-
-        public ICollection<Game> Games { get; set; }
     }
 }
