@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicTacToe.Models
@@ -8,6 +9,7 @@ namespace TicTacToe.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid NotificationId { get; set; }
 
+        [Range(1,2)]
         public NotificationState State { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

@@ -2,7 +2,7 @@
 {
     public enum NotificationState
     {
-        Joined,
+        Joined = 1,
         Left
     }
 }

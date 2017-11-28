@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicTacToe.Models
 {
@@ -10,22 +11,22 @@ namespace TicTacToe.Models
         {
             this.UserId = Guid.NewGuid();
             this.RegistrationDate = DateTime.UtcNow;
-
+            this.PhotoUrl = null;
             this.Scores = new List<Score>();
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid UserId { get; set; }
 
         [Required]
-        // TODO: Add validation
+        [MaxLength(30)]
         public string FirstName { get; set; }
 
         [Required]
-        // TODO: Add validation
+        [MaxLength(50)]
         public string LastName { get; set; }
 
-        // TODO: Add validation
         public string PhotoUrl { get; set; }
 
         public DateTime RegistrationDate { get; set; }
