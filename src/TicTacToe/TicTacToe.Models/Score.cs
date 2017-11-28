@@ -14,7 +14,7 @@ namespace TicTacToe.Models
         [Key]
         public Guid ScoreId { get; set; }
 
-        // TODO: Add validation
+        [Range(1, 3)]
         public ScoreStatus ScoreStatus { get; set; }
 
         public Guid UserId { get; set; }

@@ -2,7 +2,7 @@
 {
     public enum GameState
     {
-        WaitingForASecondPlayer,
+        WaitingForASecondPlayer = 1,
         Xturn,
         Oturn,
         Xvictory,

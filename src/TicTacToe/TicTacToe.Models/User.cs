@@ -18,14 +18,14 @@ namespace TicTacToe.Models
         public Guid UserId { get; set; }
 
         [Required]
-        // TODO: Add validation
+        [MaxLength(30)]
         public string FirstName { get; set; }
 
         [Required]
-        // TODO: Add validation
+        [MaxLength(50)]
         public string LastName { get; set; }
 
-        // TODO: Add validation
+        [Required(AllowEmptyStrings = true)]
         public string PhotoUrl { get; set; }
 
         public DateTime RegistrationDate { get; set; }

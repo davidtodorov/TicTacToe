@@ -2,7 +2,7 @@
 {
     public enum ScoreStatus
     {
-        Win,
+        Win = 1,
         Loss,
         Draw
     }
