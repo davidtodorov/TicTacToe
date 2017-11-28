@@ -7,6 +7,8 @@ namespace TicTacToe.Models
 {
     public class Game
     {
+        private string password;
+
         public Game()
         {
             this.Board = "---------";
@@ -22,26 +24,28 @@ namespace TicTacToe.Models
 
         public string Board { get; set; }
 
+       
+
         [Required]
-        [NotMapped]
         [MaxLength(50)]
         public string Password
         {
-            get { return this.Password; }
+            get { return this.password; }
             set
             {
-                if ((int)Visibility == 1 || (int)Visibility == 2 )
+                if (Visibility == VisibilityType.Protected)
                 {
-                    this.Password = value;
+                    this.password = value;
                 }
                 else
                 {
-                    this.Password = null;
+                    this.password = null;
                 }
-            } 
-
+            }
         }
 
+
+        
         public DateTime CreationDate { get; set; }
 
         [Required]

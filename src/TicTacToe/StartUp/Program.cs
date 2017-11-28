@@ -8,6 +8,7 @@ namespace StartUp
         static void Main(string[] args)
         {
             var context = new TicTacToeDbContext();
+
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
@@ -33,7 +34,8 @@ namespace StartUp
                 Name = "MostEpicMoment",
                 State = GameState.WaitingForASecondPlayer,
                 Visibility = VisibilityType.Public,
-                PlayerOne = user1
+                PlayerOne = user1,
+                
             };
 
             context.Games.Add(game1);
