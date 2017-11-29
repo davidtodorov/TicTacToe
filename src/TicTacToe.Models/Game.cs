@@ -22,6 +22,8 @@ namespace TicTacToe.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
+        [Required]
+        [StringLength(9, MinimumLength = 9)]        
         public string Board { get; set; }
 
         [MaxLength(50)]
@@ -31,16 +33,13 @@ namespace TicTacToe.Models
             {
                 return this.hashedPassword;
             }
+
             set
             {
                 if (Visibility == VisibilityType.Protected)
                 {
                     this.hashedPassword = value;
-                }
-                else
-                {
-                    this.hashedPassword = null;
-                }
+                }                
             }
         }
         

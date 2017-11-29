@@ -11,15 +11,12 @@ namespace TicTacToe.Models
             this.ScoreId = Guid.NewGuid();
         }
 
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ScoreId { get; set; }
 
         [Range(1, 3)]
         public ScoreStatus ScoreStatus { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
+        
         public Guid UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]

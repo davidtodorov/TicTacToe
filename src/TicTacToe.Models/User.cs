@@ -9,8 +9,7 @@ namespace TicTacToe.Models
     {
         public User()
         {
-            this.RegistrationDate = DateTime.UtcNow;
-            this.PhotoUrl = null;
+            this.RegistrationDate = DateTime.UtcNow;            
             this.Scores = new List<Score>();
         }
         
@@ -25,6 +24,7 @@ namespace TicTacToe.Models
         [MaxLength(50)]
         public string LastName { get; set; }
 
+        [MaxLength(1000)]
         public string PhotoUrl { get; set; }
 
         public DateTime RegistrationDate { get; set; }

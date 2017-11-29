@@ -6,13 +6,17 @@ namespace TicTacToe.Models
 {
     public class Notification
     {
+        public Notification()
+        {
+            this.CreationDate = DateTime.UtcNow;
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid NotificationId { get; set; }
 
         [Range(1, 2)]
         public NotificationState State { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        
         public DateTime CreationDate { get; set; }
 
         /// <summary>
