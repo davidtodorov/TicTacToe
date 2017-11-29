@@ -7,7 +7,7 @@ namespace TicTacToe.Models
 {
     public class Game
     {
-        private string password;
+        private string hashedPassword;
 
         public Game()
         {
@@ -16,7 +16,7 @@ namespace TicTacToe.Models
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid  GameId { get; set; }
+        public Guid GameId { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -24,47 +24,44 @@ namespace TicTacToe.Models
 
         public string Board { get; set; }
 
-       
-
-        [Required]
         [MaxLength(50)]
-        public string Password
+        public string HashedPassword
         {
-            get { return this.password; }
+            get
+            {
+                return this.hashedPassword;
+            }
             set
             {
                 if (Visibility == VisibilityType.Protected)
                 {
-                    this.password = value;
+                    this.hashedPassword = value;
                 }
                 else
                 {
-                    this.password = null;
+                    this.hashedPassword = null;
                 }
             }
         }
-
-
         
         public DateTime CreationDate { get; set; }
 
         [Required]
-        [Range(0, 2)]
+        [Range(1, 3)]
         public VisibilityType Visibility { get; set; }
 
         [Range(1, 6)]
         public GameState State { get; set; }
 
-        public Guid PlayerOneId { get; set; }
+        public Guid CreatorUserId { get; set; }
 
-        [ForeignKey(nameof(PlayerOneId))]
-        public User PlayerOne { get; set; }
+        [ForeignKey(nameof(CreatorUserId))]
+        public User CreatorUser { get; set; }
 
-        public Guid? PlayerTwoId { get; set; }
+        public Guid? OpponentUserId { get; set; }
 
-        [ForeignKey(nameof(PlayerTwoId))]
-        public User PlayerTwo { get; set; }
-
+        [ForeignKey(nameof(OpponentUserId))]
+        public User OpponentUser { get; set; }
 
         public ICollection<Notification> Notifications { get; set; }
     }

@@ -1,13 +1,24 @@
-﻿using TicTacToe.Data;
+﻿using System.IO;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using TicTacToe.Data;
 using TicTacToe.Models;
 
-namespace StartUp
+namespace TicTacToe.ConsoleApp
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            var context = new TicTacToeDbContext();
+            // Start by reading the configuration
+            var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            var optionsBuilder = new DbContextOptionsBuilder<TicTacToeDbContext>();
+            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+
+            var context = new TicTacToeDbContext(optionsBuilder.Options);
 
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
@@ -34,13 +45,11 @@ namespace StartUp
                 Name = "MostEpicMoment",
                 State = GameState.WaitingForASecondPlayer,
                 Visibility = VisibilityType.Public,
-                PlayerOne = user1,
-                
+                CreatorUser = user1,
             };
 
             context.Games.Add(game1);
             context.SaveChanges();
-
         }
     }
 }

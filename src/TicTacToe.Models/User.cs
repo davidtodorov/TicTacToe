@@ -9,13 +9,11 @@ namespace TicTacToe.Models
     {
         public User()
         {
-            this.UserId = Guid.NewGuid();
             this.RegistrationDate = DateTime.UtcNow;
             this.PhotoUrl = null;
             this.Scores = new List<Score>();
         }
-
-        [Key]
+        
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid UserId { get; set; }
 

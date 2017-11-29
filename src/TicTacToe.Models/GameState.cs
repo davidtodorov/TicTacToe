@@ -3,10 +3,10 @@
     public enum GameState
     {
         WaitingForASecondPlayer = 1,
-        Xturn,
-        Oturn,
-        Xvictory,
-        Ovictory,
+        CreatorTurn,
+        OpponentTurn,
+        CreatorVictory,
+        OpponentVictory,
         Draw
     }
 }
