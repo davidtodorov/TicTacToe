@@ -1,7 +1,4 @@
-﻿using System.IO;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using TicTacToe.Data;
+﻿using TicTacToe.ConsoleApp.Configuration;
 using TicTacToe.Models;
 
 namespace TicTacToe.ConsoleApp
@@ -10,17 +7,8 @@ namespace TicTacToe.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            // Start by reading the configuration
-            var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+            var context = new TicTacToeDbContextFactory().CreateDbContext();
 
-            var optionsBuilder = new DbContextOptionsBuilder<TicTacToeDbContext>();
-            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-
-            var context = new TicTacToeDbContext(optionsBuilder.Options);
-
-            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             var user1 = new User
