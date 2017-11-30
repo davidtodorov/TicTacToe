@@ -8,7 +8,6 @@ namespace TicTacToe.Data
 {
     public static class TicTacToeDbContextExtensions
     {
-
         public static bool AllMigrationsApplied(this DbContext context)
         {
             var applied = context.GetService<IHistoryRepository>()
@@ -24,13 +23,12 @@ namespace TicTacToe.Data
 
         public static void EnsureSeeded(this TicTacToeDbContext context)
         {
-
             if (!context.Users.Any())
             {
                 var user1 = new User
                 {
                     FirstName = "Ivan",
-                    LastName = "Ivanov",
+                    LastName = "Ivanov"
                 };
 
                 var user2 = new User
@@ -54,8 +52,7 @@ namespace TicTacToe.Data
 
                 context.Games.Add(game1);
                 context.SaveChanges();
-            }            
-            
+            }                        
         }
     }
 }

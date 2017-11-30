@@ -12,9 +12,10 @@ using TicTacToe.Models;
 namespace TicTacToe.Data.Migrations
 {
     [DbContext(typeof(TicTacToeDbContext))]
-    partial class TicTacToeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171130091606_AddedMidleName")]
+    partial class AddedMidleName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,6 +115,8 @@ namespace TicTacToe.Data.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<string>("MiddleName");
 
                     b.Property<string>("PhotoUrl")
                         .HasMaxLength(1000);
