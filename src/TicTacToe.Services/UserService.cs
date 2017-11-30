@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using TicTacToe.Data;
 using TicTacToe.Models;
 using TicTacToe.Services.Exceptions;
 using TicTacToe.Services.Interfaces;
 using TicTacToe.Services.Interfaces.Models;
+using TicTacToe.Services.Mappings;
 
 namespace TicTacToe.Services
 {
@@ -14,6 +17,15 @@ namespace TicTacToe.Services
         public UserService(TicTacToeDbContext context)
         {
             this.context = context;
+        }
+
+        /// <inheritdoc />
+        public ICollection<UserRegistrationOutput> All()
+        {
+            var users = this.context.Users.Select(UserMappings.ToUserRegistrationOutput)
+                                          .ToList();
+
+            return users;
         }
 
         /// <inheritdoc />
