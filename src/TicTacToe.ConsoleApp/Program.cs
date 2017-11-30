@@ -25,7 +25,8 @@ namespace TicTacToe.ConsoleApp
             var userService = new UserService(context);
 
             // Add a new user to the database
-            userService.Register(new UserRegistrationInput() { FirstName = "Test", LastName = "User" });
+            var newUser = new UserRegistrationInput() { FirstName = "Test", LastName = "User" };
+            userService.Register(newUser);
 
             // Prints all users from the database
             var users = userService.All();
