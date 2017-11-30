@@ -1,5 +1,7 @@
-﻿using TicTacToe.ConsoleApp.Configuration;
-using TicTacToe.Models;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using TicTacToe.ConsoleApp.Configuration;
+using TicTacToe.Data;
 
 namespace TicTacToe.ConsoleApp
 {
@@ -9,35 +11,15 @@ namespace TicTacToe.ConsoleApp
         {
             var context = new TicTacToeDbContextFactory().CreateDbContext();
 
-            context.Database.EnsureCreated();           
+            if (!context.AllMigrationsApplied())
+            {         
+                context.Database.Migrate();
+                context.EnsureSeeded();
 
-            var user1 = new User
-            {
-                FirstName = "Ivan",
-                LastName = "Ivanov",
-            };
+                Console.WriteLine("Database migrated...");
+            }
 
-            var user2 = new User
-            {
-                FirstName = "Pesho",
-                LastName = "Ivanov",
-                PhotoUrl = "LinkOfPhoto"
-            };
-
-            context.Users.Add(user1);
-            context.Users.Add(user2);
-            context.SaveChanges();
-
-            var game1 = new Game
-            {
-                Name = "MostEpicMoment",
-                State = GameState.WaitingForASecondPlayer,
-                Visibility = VisibilityType.Public,
-                CreatorUser = user1,
-            };
-
-            context.Games.Add(game1);
-            context.SaveChanges();
-        }        
+            Console.WriteLine("Finished...");
+        }
     }
 }
