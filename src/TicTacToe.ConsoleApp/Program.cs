@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using TicTacToe.ConsoleApp.Configuration;
-using TicTacToe.Data;
 using TicTacToe.Data.Extensions;
 
 namespace TicTacToe.ConsoleApp
