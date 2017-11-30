@@ -9,7 +9,7 @@ namespace TicTacToe.ConsoleApp
         {
             var context = new TicTacToeDbContextFactory().CreateDbContext();
 
-            context.Database.EnsureCreated();
+            context.Database.EnsureCreated();           
 
             var user1 = new User
             {
@@ -38,6 +38,6 @@ namespace TicTacToe.ConsoleApp
 
             context.Games.Add(game1);
             context.SaveChanges();
-        }
+        }        
     }
 }
