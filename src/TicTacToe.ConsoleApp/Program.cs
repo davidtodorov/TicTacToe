@@ -12,25 +12,26 @@ namespace TicTacToe.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            var context = new TicTacToeDbContextFactory().CreateDbContext();
-
-            if (!context.AllMigrationsApplied())
+            using (var context = new TicTacToeDbContextFactory().CreateDbContext())
             {
-                context.Database.Migrate();
-                context.EnsureSeeded();
+                if (!context.AllMigrationsApplied())
+                {
+                    context.Database.Migrate();
+                    context.EnsureSeeded();
 
-                Console.WriteLine("Database migrated...");
+                    Console.WriteLine("Database migrated...");
+                }
+
+                var userService = new UserService(context);
+
+                // Add a new user to the database
+                var newUser = new UserRegistrationInput() { FirstName = "Test", LastName = "User" };
+                userService.Register(newUser);
+
+                // Prints all users from the database
+                var users = userService.All();
+                Console.WriteLine($"All users: {string.Join(", ", users.Select(x => x.FirstName + " " + x.LastName))}");
             }
-
-            var userService = new UserService(context);
-
-            // Add a new user to the database
-            var newUser = new UserRegistrationInput() { FirstName = "Test", LastName = "User" };
-            userService.Register(newUser);
-
-            // Prints all users from the database
-            var users = userService.All();
-            Console.WriteLine($"All users: {string.Join(", ", users.Select(x => x.FirstName + " " + x.LastName))}");
         }
     }
 }

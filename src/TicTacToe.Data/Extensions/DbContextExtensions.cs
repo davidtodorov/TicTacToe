@@ -27,6 +27,7 @@ namespace TicTacToe.Data.Extensions
             {
                 return;
             }
+
             var user1 = new User
             {
                 FirstName = "Ivan",
