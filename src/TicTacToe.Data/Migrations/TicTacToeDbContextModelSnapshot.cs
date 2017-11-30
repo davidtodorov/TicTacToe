@@ -26,7 +26,9 @@ namespace TicTacToe.Data.Migrations
                     b.Property<Guid>("GameId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Board");
+                    b.Property<string>("Board")
+                        .IsRequired()
+                        .HasMaxLength(9);
 
                     b.Property<DateTime>("CreationDate");
 
@@ -59,8 +61,7 @@ namespace TicTacToe.Data.Migrations
                     b.Property<Guid>("NotificationId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreationDate")
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<DateTime>("CreationDate");
 
                     b.Property<Guid>("DestinationUserId");
 
@@ -114,7 +115,8 @@ namespace TicTacToe.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("PhotoUrl");
+                    b.Property<string>("PhotoUrl")
+                        .HasMaxLength(1000);
 
                     b.Property<DateTime>("RegistrationDate");
 
