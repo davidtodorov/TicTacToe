@@ -3,10 +3,9 @@
     public enum GameResult
     {
         InvalidPosition,
-        TurnO,
-        TurnX,
         WonByX,
         WonByO,
-        Draw
+        Draw,
+        NotFinished
     }
 }

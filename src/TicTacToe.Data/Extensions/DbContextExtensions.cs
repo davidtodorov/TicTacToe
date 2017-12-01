@@ -47,7 +47,7 @@ namespace TicTacToe.Data.Extensions
 
             var game1 = new Game
             {
-                Name = "MostEpicMoment",
+                Name = "MostEpicGame",
                 State = GameState.WaitingForASecondPlayer,
                 Visibility = VisibilityType.Public,
                 CreatorUser = user1
