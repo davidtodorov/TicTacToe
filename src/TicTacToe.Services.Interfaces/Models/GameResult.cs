@@ -2,7 +2,6 @@
 {
     public enum GameResult
     {
-        InvalidPosition,
         WonByX,
         WonByO,
         Draw,
