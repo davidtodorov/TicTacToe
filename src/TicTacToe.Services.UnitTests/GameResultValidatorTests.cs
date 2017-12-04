@@ -24,7 +24,7 @@ namespace TicTacToe.Services.UnitTests
             var gameResult = this.gameResultValidator.GetGameResult(board);
 
             // Assert
-            Assert.AreEqual(GameResult.WonByO, gameResult);
+            Assert.AreEqual(GameResult.WonByX, gameResult);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace TicTacToe.Services.UnitTests
             var gameResult = this.gameResultValidator.GetGameResult(board);
 
             // Assert
-            Assert.AreEqual(GameResult.WonByO, gameResult);
+            Assert.AreEqual(GameResult.WonByX, gameResult);
         }
     }
 }
