@@ -7,7 +7,7 @@ namespace TicTacToe.Services
     public class GameResultValidator : IGameResultValidator
     {
         /// <inheritdoc />
-        public GameResult GetGameResult(string board, int row, int col)
+        public GameResult GetGameResult(string board)
         {
             var selectedPosition = row + col;
             char playerChar = ' '; 
