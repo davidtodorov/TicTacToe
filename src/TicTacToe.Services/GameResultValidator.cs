@@ -9,104 +9,90 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public GameResult GetGameResult(string board)
         {
-            var selectedPosition = row + col;
-            char playerChar = ' '; 
             GameResult gameResult;
 
-            // Invalid Position
-            if (row > 2 || row < 0)
+            //Won, diagonal (0,4,8)
+            if (board[0] == board[4] && board[4] == board[8])
             {
-                throw new NotImplementedException();
+                GetWinner(board[0]);
             }
 
-            // Invalid Position
-            if (col > 2 || col < 0)
+            //Won, diagonal (2,4,6)
+            else if (board[2] == board[4] && board[4] == board[6])
             {
-                throw new NotImplementedException();
+                GetWinner(board[2]);
             }
 
-            // Invalid Postion
-            if (board[selectedPosition] == 'X' || board[selectedPosition] == 'O')
+            //Won, row 1 (0,1,2)
+            else if (board[0] == board[1] && board[1] == board[2])
             {
-                throw new NotImplementedException();
+                GetWinner(board[0]);
+            }
+
+            //Won, row 2 (3,4,5)
+            else if (board[3] == board[4] && board[4] == board[5])
+            {
+                GetWinner(board[3]);
+            }
+
+            //Won, row 3 (6,7,8)
+            else if (board[6] == board[7] && board[7] == board[8])
+            {
+                GetWinner(board[6]);
+            }
+
+            //Won, column 1 (0,3,6)
+            else if (board[0] == board[3] && board[3] == board[6])
+            {
+                GetWinner(board[0]);
+            }
+
+            //Won, column 2 (1,4,7)
+            else if (board[1] == board[4] && board[4] == board[7])
+            {
+                GetWinner(board[1]);
+            }
+
+            //Won, column 3 (2, 5, 8)
+            else if (board[3] == board[5] && board[5] == board[8])
+            {
+                GetWinner(board[3]);
             }
 
             //Check if it's not finished
-            if (board.Contains("-"))
-                {
-                    gameResult = GameResult.NotFinished;
-                }
-
-            //Check for player X
-            if (playerChar == 'X')
+            
+            else if (board.Contains("-"))
             {
-                gameResult = GameResult.WonByX;
+                gameResult = GameResult.NotFinished;
+                return gameResult;
             }
 
-            //Check for player O
-            else if (playerChar == 'O')
-                {
-                    gameResult = GameResult.WonByO;
-
-                }
-
-            //Check for invalid player char
             else
-                {
-                    throw new NotImplementedException();
-                }
+            {
+                gameResult = GameResult.Draw;
+                return gameResult;
+            }
 
-            //Won, diagonal
-            if (board[0] == playerChar && board[4] == playerChar && board[8] == playerChar)
-                {
-                    return gameResult;
-                }
+            throw new Exception();
+        }
+        
 
-            //Won, diagonal
-            if (board[2] == playerChar && board[4] == playerChar && board[6] == playerChar)
-                {
-                    return gameResult;
-                }
+        private GameResult GetWinner(char playerChar)
+        {
+            if (playerChar == 'X')
+            {
+                return GameResult.WonByX;
+            }
+            else if (playerChar == 'O')
+            {
+                return GameResult.WonByO;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
 
-            //Won, row 1
-            if (board[0] == playerChar && board[1] == playerChar && board[2] == playerChar)
-                {
-                    return gameResult;
-                }
-
-            //Won, row 2
-            if (board[3] == playerChar && board[4] == playerChar && board[5] == playerChar)
-                {
-                    return gameResult;
-                }
-
-            //Won, row 3
-            if (board[6] == playerChar && board[7] == playerChar && board[8] == playerChar)
-                {
-                    return gameResult;
-                }
-
-            //Won, column 1
-            if (board[0] == playerChar && board[3] == playerChar && board[6] == playerChar)
-                {
-                    return gameResult;
-                }
-
-            //Won, column 2
-            if (board[1] == playerChar && board[4] == playerChar && board[7] == playerChar)
-                {
-                    return gameResult;
-                }
-
-            //Won, column 3
-            if (board[0] == playerChar && board[3] == playerChar && board[6] == playerChar)
-                {
-                    return gameResult;
-                }
-
-            gameResult = GameResult.Draw;
-
-            return gameResult;
+            
         }
     }
 }
