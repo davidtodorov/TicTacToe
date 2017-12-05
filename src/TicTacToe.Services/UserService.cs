@@ -20,16 +20,16 @@ namespace TicTacToe.Services
         }
 
         /// <inheritdoc />
-        public ICollection<UserRegistrationOutput> All()
+        public ICollection<UserInfoOutput> All()
         {
-            var users = this.context.Users.Select(UserMappings.ToUserRegistrationOutput)
+            var users = this.context.Users.Select(UserMappings.ToUserInfoOutput)
                                           .ToList();
 
             return users;
         }
 
         /// <inheritdoc />
-        public UserRegistrationOutput Register(UserRegistrationInput input)
+        public UserInfoOutput Register(UserRegistrationInput input)
         {
             if (string.IsNullOrWhiteSpace(input.FirstName))
             {
@@ -51,16 +51,7 @@ namespace TicTacToe.Services
             context.Users.Add(user);
             context.SaveChanges();
 
-            var outputResult = new UserRegistrationOutput()
-            {
-                Id = user.UserId,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                PhotoUrl = user.PhotoUrl,
-                RegistrationDate = user.RegistrationDate
-            };
-
-            return outputResult;
+            return user.ToUserInfo();
         }
 
         /// <inheritdoc />
