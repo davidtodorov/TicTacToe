@@ -332,5 +332,23 @@ namespace TicTacToe.Services.UnitTests
             // Assert
             Assert.AreEqual(GameResult.Draw, gameResult);
         }
+
+        /// <summary>
+        /// A A A
+        /// - - X
+        /// X X -
+        /// </summary>
+        [TestMethod]
+        public void GetGameResult_WhenAnotherCharIsUsed_ReturnsInvalid()
+        {
+            // Arrange
+            var board = "AAA--XXX-";
+
+            // Act
+            var gameResult = this.gameResultValidator.GetGameResult(board);
+
+            // Assert
+            Assert.AreEqual(GameResult.Invalid, gameResult);
+        }
     }
 }
