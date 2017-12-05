@@ -15,7 +15,7 @@ namespace TicTacToe.Services.UnitTests
         /// O - O
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerXWinsOnFirstRow_ReturnsWinByX()
+        public void GetGameResult_WhenPlayerXWinsOnFirstRow_ReturnsWonByX()
         {
             // Arrange
             var board = "XXX-O-O-O";
@@ -33,7 +33,7 @@ namespace TicTacToe.Services.UnitTests
         /// O - O
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerXWinsOnSecondRow_ReturnsWinByX()
+        public void GetGameResult_WhenPlayerXWinsOnSecondRow_ReturnsWonByX()
         {
             // Arrange
             var board = "O--XXXO-O";
@@ -51,7 +51,7 @@ namespace TicTacToe.Services.UnitTests
         /// X X X
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerXWinsOnThirdRow_ReturnsWinByX()
+        public void GetGameResult_WhenPlayerXWinsOnThirdRow_ReturnsWonByX()
         {
             // Arrange
             var board = "O--OO-XXX";
@@ -69,7 +69,7 @@ namespace TicTacToe.Services.UnitTests
         /// X O O
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerXWinsOnFirstColumn_ReturnsWinByX()
+        public void GetGameResult_WhenPlayerXWinsOnFirstColumn_ReturnsWonByX()
         {
             // Arrange
             var board = "XO-X--XOO";
@@ -87,7 +87,7 @@ namespace TicTacToe.Services.UnitTests
         /// - X O
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerXWinsOnSecondColumn_ReturnsWinByX()
+        public void GetGameResult_WhenPlayerXWinsOnSecondColumn_ReturnsWonByX()
         {
             // Arrange
             var board = "OX-OX--XO";
@@ -105,7 +105,7 @@ namespace TicTacToe.Services.UnitTests
         /// - O X
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerXWinsOnThirdColumn_ReturnsWinByX()
+        public void GetGameResult_WhenPlayerXWinsOnThirdColumn_ReturnsWonByX()
         {
             // Arrange
             var board = "O-X-OX-OX";
@@ -123,7 +123,7 @@ namespace TicTacToe.Services.UnitTests
         /// X O O
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerXWinsByDiagonal_ReturnsWinByX()
+        public void GetGameResult_WhenPlayerXWinsByDiagonal_ReturnsWonByX()
         {
             // Arrange
             var board = "O-X-X-XOO";
@@ -141,7 +141,7 @@ namespace TicTacToe.Services.UnitTests
         /// O O X
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerXWinsByDiagonal2_ReturnsWinByX()
+        public void GetGameResult_WhenPlayerXWinsByDiagonal2_ReturnsWonByX()
         {
             // Arrange
             var board = "X-O-X-OOX";
@@ -159,7 +159,7 @@ namespace TicTacToe.Services.UnitTests
         /// X - -
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerOWinsOnFirstRow_ReturnsWinByO()
+        public void GetGameResult_WhenPlayerOWinsOnFirstRow_ReturnsWonByO()
         {
             // Arrange
             var board = "OOO-X-XX--";
@@ -177,7 +177,7 @@ namespace TicTacToe.Services.UnitTests
         /// X - -
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerOWinsOnSecondRow_ReturnsWinByO()
+        public void GetGameResult_WhenPlayerOWinsOnSecondRow_ReturnsWonByO()
         {
             // Arrange
             var board = "X--OOOX--";
@@ -195,7 +195,7 @@ namespace TicTacToe.Services.UnitTests
         /// O O O
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerOWinsOnThirdRow_ReturnsWinByO()
+        public void GetGameResult_WhenPlayerOWinsOnThirdRow_ReturnsWonByO()
         {
             // Arrange
             var board = "X----XOOO";
@@ -213,7 +213,7 @@ namespace TicTacToe.Services.UnitTests
         /// O - X
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerOWinsOnFirstColumn_ReturnsWinByO()
+        public void GetGameResult_WhenPlayerOWinsOnFirstColumn_ReturnsWonByO()
         {
             // Arrange
             var board = "OX-O--O-X";
@@ -231,7 +231,7 @@ namespace TicTacToe.Services.UnitTests
         /// - O X
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerOWinsOnSecondColumn_ReturnsWinByO()
+        public void GetGameResult_WhenPlayerOWinsOnSecondColumn_ReturnsWonByO()
         {
             // Arrange
             var board = "XO-XO--OX";
@@ -249,7 +249,7 @@ namespace TicTacToe.Services.UnitTests
         /// - X O
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerOWinsOnThirdColumn_ReturnsWinByO()
+        public void GetGameResult_WhenPlayerOWinsOnThirdColumn_ReturnsWonByO()
         {
             // Arrange
             var board = "XXO--O-XO";
@@ -267,7 +267,7 @@ namespace TicTacToe.Services.UnitTests
         /// O X -
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerOWinsByDiagonal_ReturnsWinByO()
+        public void GetGameResult_WhenPlayerOWinsByDiagonal_ReturnsWonByO()
         {
             // Arrange
             var board = "XXO-O-OX-";
@@ -285,7 +285,7 @@ namespace TicTacToe.Services.UnitTests
         /// - X O
         /// </summary>
         [TestMethod]
-        public void GetGameResult_WhenPlayerOWinsByDiagonal2_ReturnsWinByO()
+        public void GetGameResult_WhenPlayerOWinsByDiagonal2_ReturnsWonByO()
         {
             // Arrange
             var board = "OX-XO--XO";
