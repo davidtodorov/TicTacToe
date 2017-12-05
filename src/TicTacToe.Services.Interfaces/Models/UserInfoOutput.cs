@@ -2,7 +2,7 @@
 
 namespace TicTacToe.Services.Interfaces.Models
 {
-    public class UserRegistrationOutput
+    public class UserInfoOutput
     {
         public Guid Id { get; set; }
 

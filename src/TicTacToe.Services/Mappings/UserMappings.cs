@@ -5,10 +5,13 @@ using TicTacToe.Services.Interfaces.Models;
 
 namespace TicTacToe.Services.Mappings
 {
-    internal class UserMappings
+    internal static class UserMappings
     {
-        public static readonly Expression<Func<User, UserRegistrationOutput>> ToUserRegistrationOutput =
-            entity => new UserRegistrationOutput
+        public static readonly Expression<Func<User, UserInfoOutput>> ToUserInfoOutput = entity => entity.ToUserInfo();
+
+        public static UserInfoOutput ToUserInfo(this User entity)
+        {
+            return new UserInfoOutput
             {
                 Id = entity.UserId,
                 FirstName = entity.FirstName,
@@ -16,5 +19,6 @@ namespace TicTacToe.Services.Mappings
                 PhotoUrl = entity.PhotoUrl,
                 RegistrationDate = entity.RegistrationDate
             };
+        }
     }
 }

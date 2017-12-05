@@ -2,6 +2,7 @@
 {
     public enum GameResult
     {
+        Invalid,
         WonByX,
         WonByO,
         Draw,
