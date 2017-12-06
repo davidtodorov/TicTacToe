@@ -30,7 +30,7 @@ namespace TicTacToe.Services
         }
 
         /// <inheritdoc />
-        public Guid Create(GameCreationInput input, Guid creatorUserId)
+        public GameStatusOutput Create(GameCreationInput input, Guid creatorUserId)
         {
             throw new NotImplementedException();
         }

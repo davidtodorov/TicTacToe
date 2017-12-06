@@ -18,8 +18,8 @@ namespace TicTacToe.Services.Interfaces
         /// </summary>
         /// <param name="input">The game's input information.</param>
         /// <param name="creatorUserId">The creator user's identifier.</param>
-        /// <returns>The newly created game's identifier.</returns>
-        Guid Create(GameCreationInput input, Guid creatorUserId);
+        /// <returns>The status information about the game session.</returns>
+        GameStatusOutput Create(GameCreationInput input, Guid creatorUserId);
 
         /// <summary>
         /// Joins to a game session by given game's identifier.

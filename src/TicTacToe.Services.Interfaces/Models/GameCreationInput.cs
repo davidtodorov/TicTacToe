@@ -1,5 +1,4 @@
-﻿using System;
-using TicTacToe.Models;
+﻿using TicTacToe.Models;
 
 namespace TicTacToe.Services.Interfaces.Models
 {
@@ -12,7 +11,5 @@ namespace TicTacToe.Services.Interfaces.Models
         public VisibilityType Visibility { get; set; }
 
         public GameState State { get; set; }
-
-        public DateTime CreationDate { get; set; }
     }
 }
