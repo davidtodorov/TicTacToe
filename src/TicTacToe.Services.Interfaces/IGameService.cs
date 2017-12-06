@@ -16,10 +16,10 @@ namespace TicTacToe.Services.Interfaces
         /// <summary>
         /// Creates a new game session by given name.
         /// </summary>
-        /// <param name="name">The game's name.</param>
+        /// <param name="input">The game's input information.</param>
         /// <param name="creatorUserId">The creator user's identifier.</param>
         /// <returns>The newly created game's identifier.</returns>
-        Guid Create(string name, Guid creatorUserId);
+        Guid Create(GameCreationInput input, Guid creatorUserId);
 
         /// <summary>
         /// Joins to a game session by given game's identifier.
