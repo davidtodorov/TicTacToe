@@ -49,8 +49,8 @@ namespace TicTacToe.Services
 
             context.Users.Add(user);
             context.SaveChanges();
-
-            return user.ToUserInfo();
+            var result = user.ToUserInfo();
+            return result;
         }
 
         /// <inheritdoc />

@@ -38,20 +38,13 @@ namespace TicTacToe.Services
                 Visibility = input.Visibility,
                 HashedPassword = input.Password,
                 CreatorUserId = creatorUserId,
+                State = GameState.WaitingForASecondPlayer
             };
 
             context.Games.Add(game);
             context.SaveChanges();
 
-            var gameStatus = new GameStatusOutput()
-            {
-                Id = game.GameId,
-                CreatorUsername = game.CreatorUser.FirstName,
-                Board = game.Board,
-                OpponentUsername = game.OpponentUser.FirstName
-            };
-
-            return gameStatus;
+            return game.ToGameStatusOutput();
         }
 
         /// <inheritdoc />
