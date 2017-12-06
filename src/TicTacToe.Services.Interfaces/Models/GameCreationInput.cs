@@ -9,7 +9,5 @@ namespace TicTacToe.Services.Interfaces.Models
         public string Password { get; set; }
 
         public VisibilityType Visibility { get; set; }
-
-        public GameState State { get; set; }
     }
 }

@@ -33,16 +33,18 @@ namespace TicTacToe.Services.Interfaces
         /// Gets a status information about a game session.
         /// </summary>
         /// <param name="gameId">The game's identifier.</param>
+        /// <param name="userId">The user's identifier requesting the status.</param>
         /// <returns>The status information about the game session.</returns>
-        GameStatusOutput Status(Guid gameId);
+        GameStatusOutput Status(Guid gameId, Guid userId);
 
         /// <summary>
         /// Plays a turn for a given game session.
         /// </summary>
         /// <param name="gameId">The game's identifier.</param>
+        /// <param name="userId">The user's identifier playing a turn.</param>
         /// <param name="row">The specified row.</param>
         /// <param name="col">The specified column.</param>
         /// <returns>The status information about the game session.</returns>
-        GameStatusOutput Play(Guid gameId, int row, int col);
+        GameStatusOutput Play(Guid gameId, Guid userId, int row, int col);
     }
 }
