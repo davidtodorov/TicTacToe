@@ -22,8 +22,7 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public ICollection<UserInfoOutput> All()
         {
-            var users = this.context.Users.Select(UserMappings.ToUserInfoOutput)
-                                          .ToList();
+            var users = this.context.Users.Select(UserMappings.ToUserInfoOutput).ToList();
 
             return users;
         }

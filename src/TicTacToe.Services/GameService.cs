@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using TicTacToe.Data;
+using TicTacToe.Models;
 using TicTacToe.Services.Interfaces;
 using TicTacToe.Services.Interfaces.Models;
+using TicTacToe.Services.Mappings;
 
 namespace TicTacToe.Services
 {
@@ -12,6 +16,17 @@ namespace TicTacToe.Services
         public GameService(TicTacToeDbContext context)
         {
             this.context = context;
+        }
+
+        /// <inheritdoc />
+        public ICollection<AvailableGameInfoOutput> GetAvailableGames(Guid opponentUserId)
+        {
+            var games = this.context.Games.Where(x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != opponentUserId)
+                                          .OrderByDescending(x => x.CreationDate)
+                                          .Select(GameMappings.ToAvailableGameInfoOutput)
+                                          .ToList();
+
+            return games;
         }
 
         /// <inheritdoc />

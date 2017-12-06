@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using TicTacToe.Services.Interfaces.Models;
 
 namespace TicTacToe.Services.Interfaces
 {
     public interface IGameService
     {
+        /// <summary>
+        /// Gets all available games waiting for an opponent.
+        /// </summary>
+        /// <param name="opponentUserId">The opponent user's identifier searching for a game.</param>
+        /// <returns>A collection of all available games.</returns>
+        ICollection<AvailableGameInfoOutput> GetAvailableGames(Guid opponentUserId);
+
         /// <summary>
         /// Creates a new game session by given name.
         /// </summary>
