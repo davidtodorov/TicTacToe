@@ -61,13 +61,13 @@ namespace TicTacToe.Services
         }
 
         /// <inheritdoc />
-        public GameStatusOutput Status(Guid gameId)
+        public GameStatusOutput Status(Guid gameId, Guid userId)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc />
-        public GameStatusOutput Play(Guid gameId, int row, int col)
+        public GameStatusOutput Play(Guid gameId, Guid userId, int row, int col)
         {
             throw new NotImplementedException();
         }
