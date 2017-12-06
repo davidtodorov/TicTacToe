@@ -15,7 +15,7 @@ namespace TicTacToe.Models
         public Guid ScoreId { get; set; }
 
         [Range(1, 3)]
-        public ScoreStatus ScoreStatus { get; set; }
+        public ScoreStatus Status { get; set; }
         
         public Guid UserId { get; set; }
 

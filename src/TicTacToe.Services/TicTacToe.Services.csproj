@@ -7,10 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0" />
     <PackageReference Include="StyleCop" Version="5.0.0">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
@@ -18,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TicTacToe.Data\TicTacToe.Data.csproj" />
     <ProjectReference Include="..\TicTacToe.Models\TicTacToe.Models.csproj" />
+    <ProjectReference Include="..\TicTacToe.Services.Interfaces\TicTacToe.Services.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
