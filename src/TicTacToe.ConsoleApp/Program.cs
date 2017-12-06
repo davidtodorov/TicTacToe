@@ -23,6 +23,7 @@ namespace TicTacToe.ConsoleApp
                 }
 
                 var userService = new UserService(context);
+                var gameService = new GameService(context);
 
                 // Add a new user to the database
                 var newUser = new UserRegistrationInput() { FirstName = "Test", LastName = "User" };

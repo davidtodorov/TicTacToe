@@ -32,7 +32,26 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public GameStatusOutput Create(GameCreationInput input, Guid creatorUserId)
         {
-            throw new NotImplementedException();
+            var game = new Game()
+            {
+                Name = input.Name,
+                Visibility = input.Visibility,
+                HashedPassword = input.Password,
+                CreatorUserId = creatorUserId,
+            };
+
+            context.Games.Add(game);
+            context.SaveChanges();
+
+            var gameStatus = new GameStatusOutput()
+            {
+                Id = game.GameId,
+                CreatorUsername = game.CreatorUser.FirstName,
+                Board = game.Board,
+                OpponentUsername = game.OpponentUser.FirstName
+            };
+
+            return gameStatus;
         }
 
         /// <inheritdoc />
