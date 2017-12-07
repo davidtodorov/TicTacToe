@@ -28,7 +28,8 @@ namespace TicTacToe.Services.Mappings
                 Id = entity.GameId,
                 CreatorUsername = entity.CreatorUser.FirstName,
                 Board = entity.Board,
-                OpponentUsername = entity.OpponentUser?.FirstName
+                OpponentUsername = entity.OpponentUser?.FirstName,
+                State = entity.State             
             };
         }
     }

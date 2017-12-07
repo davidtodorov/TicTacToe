@@ -23,38 +23,38 @@ namespace TicTacToe.Data.Extensions
 
         public static void EnsureSeeded(this TicTacToeDbContext context)
         {
-            if (context.Users.Any())
-            {
-                return;
-            }
+            //if (context.Users.Any())
+            //{
+            //    return;
+            //}
 
-            var user1 = new User
-            {
-                FirstName = "Ivan",
-                LastName = "Ivanov"
-            };
+            //var user1 = new User
+            //{
+            //    FirstName = "Ivan",
+            //    LastName = "Ivanov"
+            //};
 
-            var user2 = new User
-            {
-                FirstName = "Pesho",
-                LastName = "Ivanov",
-                PhotoUrl = "LinkOfPhoto"
-            };
+            //var user2 = new User
+            //{
+            //    FirstName = "Pesho",
+            //    LastName = "Ivanov",
+            //    PhotoUrl = "LinkOfPhoto"
+            //};
 
-            context.Users.Add(user1);
-            context.Users.Add(user2);
-            context.SaveChanges();
+            //context.Users.Add(user1);
+            //context.Users.Add(user2);
+            //context.SaveChanges();
 
-            var game1 = new Game
-            {
-                Name = "MostEpicGame",
-                State = GameState.WaitingForASecondPlayer,
-                Visibility = VisibilityType.Public,
-                CreatorUser = user1
-            };
+            //var game1 = new Game
+            //{
+            //    Name = "MostEpicGame",
+            //    State = GameState.WaitingForASecondPlayer,
+            //    Visibility = VisibilityType.Public,
+            //    CreatorUser = user1
+            //};
 
-            context.Games.Add(game1);
-            context.SaveChanges();
+            //context.Games.Add(game1);
+            //context.SaveChanges();
         }
     }
 }

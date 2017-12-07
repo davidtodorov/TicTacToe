@@ -19,7 +19,6 @@ namespace TicTacToe.ConsoleApp
                 {
                     context.Database.Migrate();
                     context.EnsureSeeded();
-
                     Console.WriteLine("Database migrated...");
                 }
 
@@ -27,24 +26,26 @@ namespace TicTacToe.ConsoleApp
                 var gameService = new GameService(context);
 
                 // Add a new user to the database
-                var newUser = new UserRegistrationInput() { FirstName = "Test", LastName = "User" };
-                var result = userService.Register(newUser);
+                var user1 = new UserRegistrationInput() { FirstName = "Test", LastName = "User" };
+                var user1Result = userService.Register(user1);
 
-                // Prints all users from the database
-                var users = userService.All();
-                Console.WriteLine($"All users: {string.Join(", ", users.Select(x => x.FirstName + " " + x.LastName))}");
-
-                // Creating new game
-                var newGame = new GameCreationInput()
+                // Prints all games from the datebase
+                var games = gameService.GetAvailableGames(user1Result.Id);
+                if (games.Count == 0)
                 {
-                    Name = "Game1",
-                    Visibility = VisibilityType.Public
-                };
-                var gameResult = gameService.Create(newGame, result.Id);
+                    // Creating new game
+                    var newGame = new GameCreationInput()
+                    {
+                        Name = "Game1",
+                        Visibility = VisibilityType.Public
+                    };
+                    var createdGame = gameService.Create(newGame, user1Result.Id);
+                    games = gameService.GetAvailableGames(user1Result.Id);
+                }
 
-               // Prints all games from the datebase
-               var games = gameService.GetAvailableGames(result.Id);
-                Console.WriteLine($"All games: {string.Join(", ", games.Select(g=> g.Name))}");
+                Console.WriteLine($"All games: {string.Join(", ", games.Select(g => g.Name))}");
+
+                var joinGame = gameService.Join(games.FirstOrDefault().Id, user1Result.Id);
             }
         }
     }
