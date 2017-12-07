@@ -64,16 +64,18 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public GameStatusOutput Status(Guid gameId, Guid userId)
         {
-            var game = this.context.Games.FirstOrDefault(g => g.GameId == gameId);
-            var result = game.ToGameStatusOutput();
-            return result;
+            var game = this.context.Games.Include(x => x.CreatorUser)
+                                         .Include(x => x.OpponentUser)
+                                         .AsNoTracking()
+                                         .FirstOrDefault(g => g.GameId == gameId);
+
+            return game.ToGameStatusOutput();
         }
 
         /// <inheritdoc />
         public GameStatusOutput Play(Guid gameId, Guid userId, int row, int col)
         {
-            var game = this.context.Games.FirstOrDefault(g => g.GameId == gameId);
-
+            var game = this.context.Games.FirstOrDefault(g => g.GameId == gameId);           
             var player1 = this.context.Users.FirstOrDefault(u => u.UserId == userId);
             throw new Exception();
         }

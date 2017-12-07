@@ -26,9 +26,11 @@ namespace TicTacToe.Services.Mappings
             return new GameStatusOutput()
             {
                 Id = entity.GameId,
+                CreatorUserId = entity.CreatorUserId,
                 CreatorUsername = entity.CreatorUser.FirstName,
-                Board = entity.Board,
+                OpponentUserId = entity.OpponentUserId,
                 OpponentUsername = entity.OpponentUser?.FirstName,
+                Board = entity.Board,
                 State = entity.State             
             };
         }
