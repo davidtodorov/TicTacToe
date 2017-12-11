@@ -15,7 +15,7 @@ namespace TicTacToe.ConsoleApp.Configuration
                                                    .Build();
 
             var builder = new DbContextOptionsBuilder<TicTacToeDbContext>();
-            var connectionString = config.GetConnectionString("DefaultConnection");
+            var connectionString = config.GetConnectionString("RemoteConnection");
             builder.UseSqlServer(connectionString);
 
             return new TicTacToeDbContext(builder.Options);

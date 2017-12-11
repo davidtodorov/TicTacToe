@@ -69,6 +69,10 @@ namespace TicTacToe.Services
             {
                 return GameResult.WonByO;
             }
+            else if (playerChar == '-')
+            {
+                return GameResult.NotFinished;
+            }
             else
             {
                 return GameResult.Invalid;

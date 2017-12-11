@@ -27,7 +27,7 @@ namespace TicTacToe.Services.Mappings
             {
                 Id = entity.GameId,
                 CreatorUserId = entity.CreatorUserId,
-                CreatorUsername = entity.CreatorUser.FirstName,
+                CreatorUsername = entity.CreatorUser?.FirstName,
                 OpponentUserId = entity.OpponentUserId,
                 OpponentUsername = entity.OpponentUser?.FirstName,
                 Board = entity.Board,
