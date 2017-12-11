@@ -16,8 +16,7 @@ namespace TicTacToe.Services.Mappings
                 Id = entity.UserId,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                PhotoUrl = entity.PhotoUrl,
-                RegistrationDate = entity.RegistrationDate
+                PhotoUrl = entity.PhotoUrl
             };
         }
     }

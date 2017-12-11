@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using TicTacToe.Data;
 using TicTacToe.Models;
 using TicTacToe.Services.Interfaces;
@@ -32,25 +33,51 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public GameStatusOutput Create(GameCreationInput input, Guid creatorUserId)
         {
-            throw new NotImplementedException();
+            var game = new Game()
+            {
+                Name = input.Name,
+                Visibility = input.Visibility,
+                HashedPassword = input.Password,
+                CreatorUserId = creatorUserId,
+                State = GameState.WaitingForASecondPlayer
+            };
+
+            context.Games.Add(game);
+            context.SaveChanges();
+            var result = game.ToGameStatusOutput();
+            return result;
         }
 
         /// <inheritdoc />
         public GameStatusOutput Join(Guid gameId, Guid opponentUserId)
         {
-            throw new NotImplementedException();
+            var game = this.context.Games
+                .Include(g => g.CreatorUser)
+                .FirstOrDefault(g => g.GameId == gameId);
+            game.OpponentUserId = opponentUserId;
+            game.State = GameState.CreatorTurn;
+            context.SaveChanges();
+            var result = game.ToGameStatusOutput();
+            return result;
         }
 
         /// <inheritdoc />
         public GameStatusOutput Status(Guid gameId, Guid userId)
         {
-            throw new NotImplementedException();
+            var game = this.context.Games.Include(x => x.CreatorUser)
+                                         .Include(x => x.OpponentUser)
+                                         .AsNoTracking()
+                                         .FirstOrDefault(g => g.GameId == gameId);
+
+            return game.ToGameStatusOutput();
         }
 
         /// <inheritdoc />
         public GameStatusOutput Play(Guid gameId, Guid userId, int row, int col)
         {
-            throw new NotImplementedException();
+            var game = this.context.Games.FirstOrDefault(g => g.GameId == gameId);           
+            var player1 = this.context.Users.FirstOrDefault(u => u.UserId == userId);
+            throw new Exception();
         }
     }
 }
