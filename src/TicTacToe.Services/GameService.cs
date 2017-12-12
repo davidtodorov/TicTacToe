@@ -22,9 +22,9 @@ namespace TicTacToe.Services
         }
 
         /// <inheritdoc />
-        public ICollection<AvailableGameInfoOutput> GetAvailableGames(Guid opponentUserId)
+        public ICollection<AvailableGameInfoOutput> GetAvailableGames(Guid userId)
         {
-            var games = this.context.Games.Where(x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != opponentUserId)
+            var games = this.context.Games.Where(x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != userId)
                                           .OrderByDescending(x => x.CreationDate)
                                           .Select(GameMappings.ToAvailableGameInfoOutput)
                                           .ToList();
@@ -53,12 +53,21 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public GameStatusOutput Join(Guid gameId, Guid opponentUserId)
         {
+            Random r = new Random();
             var game = this.context.Games
                 .Include(g => g.CreatorUser)
                 .FirstOrDefault(g => g.GameId == gameId);
 
             game.OpponentUserId = opponentUserId;
-            game.State = GameState.CreatorTurn; // Should be changed to random
+            var turn = r.Next(0, 1);
+            if (turn == 0)
+            {
+                game.State = GameState.CreatorTurn;
+            }
+            else
+            {
+                game.State = GameState.OpponentTurn;
+            }
 
             context.SaveChanges();
 

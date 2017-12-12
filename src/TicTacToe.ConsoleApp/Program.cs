@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
@@ -27,8 +28,14 @@ namespace TicTacToe.ConsoleApp
                 var userService = new UserService(context);
                 var gameService = new GameService(context, new GameResultValidator());
 
+                Console.WriteLine("Enter your First Name");
+                string userFirstName = Console.ReadLine();
+
+                Console.WriteLine("Enter your Last Name");
+                string userLastName = Console.ReadLine();
+
                 // Add a new user to the database
-                var user = userService.Register(new UserRegistrationInput() { FirstName = "Test3", LastName = "User" });
+                var user = userService.Register(new UserRegistrationInput() { FirstName = userFirstName, LastName = userLastName });
                 var currentGameId = GetOrCreateGame(gameService, user.Id);
 
                 PlayGame(currentGameId, user.Id);
@@ -92,17 +99,37 @@ namespace TicTacToe.ConsoleApp
         private static Guid GetOrCreateGame(GameService gameService, Guid userId)
         {
             Guid currentGameId;
-            var games = gameService.GetAvailableGames(userId);
+            var availableGames = gameService.GetAvailableGames(userId);
 
-            if (!games.Any())
+            if (!availableGames.Any())
             {
-                var newGame = new GameCreationInput() { Name = "Game2", Visibility = VisibilityType.Public };
+                Console.WriteLine("There are no available games, please create one");
+                Console.Write("Enter name of the game: ");
+                var gameName = Console.ReadLine();
+                var newGame = new GameCreationInput() { Name = gameName, Visibility = VisibilityType.Public };
 
                 currentGameId = gameService.Create(newGame, userId).Id;
             }
             else
             {
-                currentGameId = gameService.Join(games.FirstOrDefault().Id, userId).Id;
+                var games = new List<AvailableGameInfoOutput>();
+                int numberOfGame = 1;
+                Console.WriteLine("Choose game:");
+                foreach (var availableGame in availableGames)
+                {
+                    Console.WriteLine($"{numberOfGame}. {availableGame.Name}");
+                    games.Add(availableGame);
+                    numberOfGame++;
+                }
+
+                var choosedGame = int.Parse(Console.ReadLine());
+                while (choosedGame < 1 || choosedGame > games.Count)
+                {
+                    Console.WriteLine("Enter valid number");
+                    choosedGame = int.Parse(Console.ReadLine());
+                }
+
+                currentGameId = gameService.Join(games[choosedGame-1].Id, userId).Id;
             }
 
             return currentGameId;
