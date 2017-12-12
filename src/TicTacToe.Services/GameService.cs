@@ -59,7 +59,7 @@ namespace TicTacToe.Services
                 .FirstOrDefault(g => g.GameId == gameId);
 
             game.OpponentUserId = opponentUserId;
-            var turn = r.Next(0, 1);
+            var turn = r.Next(0, 2);
             if (turn == 0)
             {
                 game.State = GameState.CreatorTurn;
@@ -92,7 +92,7 @@ namespace TicTacToe.Services
                 .Include(x => x.OpponentUser)
                 .FirstOrDefault(g => g.GameId == gameId);
 
-            var player1 = this.context.Users.AsNoTracking().FirstOrDefault(u => u.UserId == userId);
+            var user = this.context.Users.Include(u => u.Scores).AsNoTracking().FirstOrDefault(u => u.UserId == userId);
 
             var boardArray = game.Board.ToCharArray();
             var position = 3 * row + col;
@@ -109,11 +109,11 @@ namespace TicTacToe.Services
 
             boardArray[position] = playerChar;
             string boardInsertedPosition = string.Join(string.Empty, boardArray);
-            var result = gameValidator.GetGameResult(boardInsertedPosition);
+            var gameResult = gameValidator.GetGameResult(boardInsertedPosition);
 
             game.Board = boardInsertedPosition;
 
-            if (result == GameResult.NotFinished)
+            if (gameResult == GameResult.NotFinished)
             {
                 if (game.State == GameState.CreatorTurn)
                 {
@@ -124,22 +124,39 @@ namespace TicTacToe.Services
                     game.State = GameState.CreatorTurn;
                 }
             }
-            else if (result == GameResult.WonByX)
+            else if (gameResult == GameResult.WonByX)
             {
                 game.State = GameState.CreatorVictory;
+                CreateScore(game, game.CreatorUserId, ScoreStatus.Win);
+                CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Loss);
             }
-            else if (result == GameResult.WonByO)
+            else if (gameResult == GameResult.WonByO)
             {
                 game.State = GameState.OpponentVictory;
+                CreateScore(game, game.CreatorUserId, ScoreStatus.Loss);
+                CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Win);
             }
-            else if (result == GameResult.Draw)
+            else if (gameResult == GameResult.Draw)
             {
-                Console.WriteLine();
                 game.State = GameState.Draw;
+                CreateScore(game, game.CreatorUserId, ScoreStatus.Draw);
+                CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Draw);
             }
             
             context.SaveChanges();
             return game.ToGameStatusOutput();
+        }
+        
+        private void CreateScore(Game game, Guid userId, ScoreStatus status)
+        {
+            var score = new Score()
+            {
+                GameId = game.GameId,
+                UserId = userId,
+                Status = status
+            };
+
+            context.Scores.Add(score);
         }
     }
 }
