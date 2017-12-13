@@ -25,9 +25,9 @@ namespace TicTacToe.Services.Interfaces
         /// Joins to a game session by given game's identifier.
         /// </summary>
         /// <param name="gameId">The game's identifier.</param>
-        /// <param name="opponentUserId">The opponent user's identifier.</param>
+        /// <param name="userId">The opponent user's identifier.</param>
         /// <returns>The status information about the game session.</returns>
-        GameStatusOutput Join(Guid gameId, Guid opponentUserId);
+        GameStatusOutput Join(Guid gameId, Guid userId);
 
         /// <summary>
         /// Gets a status information about a game session.

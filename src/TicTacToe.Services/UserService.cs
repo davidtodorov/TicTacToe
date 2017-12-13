@@ -49,6 +49,7 @@ namespace TicTacToe.Services
 
             context.Users.Add(user);
             context.SaveChanges();
+
             var result = user.ToUserInfo();
             return result;
         }

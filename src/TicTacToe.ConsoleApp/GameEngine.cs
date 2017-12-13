@@ -84,6 +84,7 @@ namespace TicTacToe.ConsoleApp
                 }
                 else
                 {
+                    // Refresh the list
                     Console.WriteLine("Choose game:");
 
                     for (int i = 0; i < availableGames.Count; i++)
