@@ -11,7 +11,5 @@ namespace TicTacToe.Services.Interfaces.Models
         public string LastName { get; set; }
 
         public string PhotoUrl { get; set; }
-
-        public DateTime RegistrationDate { get; set; }
     }
 }

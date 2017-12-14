@@ -7,7 +7,14 @@ namespace TicTacToe.Services.Mappings
 {
     internal static class UserMappings
     {
-        public static readonly Expression<Func<User, UserInfoOutput>> ToUserInfoOutput = entity => entity.ToUserInfo();
+        public static readonly Expression<Func<User, UserInfoOutput>> ToUserInfoOutput =
+            entity => new UserInfoOutput
+            {
+                Id = entity.UserId,
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
+                PhotoUrl = entity.PhotoUrl
+            };
 
         public static UserInfoOutput ToUserInfo(this User entity)
         {
@@ -16,8 +23,7 @@ namespace TicTacToe.Services.Mappings
                 Id = entity.UserId,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                PhotoUrl = entity.PhotoUrl,
-                RegistrationDate = entity.RegistrationDate
+                PhotoUrl = entity.PhotoUrl
             };
         }
     }
