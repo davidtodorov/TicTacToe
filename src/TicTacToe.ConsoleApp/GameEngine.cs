@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using TicTacToe.ConsoleApp.Configuration;
 using TicTacToe.Models;
@@ -18,46 +19,9 @@ namespace TicTacToe.ConsoleApp
                 using (var context = new TicTacToeDbContextFactory().CreateDbContext())
                 {
                     var gameService = new GameService(context, new GameResultValidator());
-
                     var game = gameService.Status(gameId, userId);
                     this.PrintBoard(game.Board);
-
-                    if (game.State == GameState.WaitingForASecondPlayer)
-                    {
-                        Console.WriteLine("Waiting for a second player...");
-                    }
-                    else if (game.State == GameState.CreatorVictory)
-                    {
-                        Console.WriteLine("Game over! \n");
-                        Console.WriteLine($"{game.CreatorUsername} won!");
-                        Console.WriteLine($"{game.OpponentUsername} lost!");
-                    }
-                    else if (game.State == GameState.OpponentVictory)
-                    {
-                        Console.WriteLine("Game over! \n");
-                        Console.WriteLine($"{game.OpponentUsername} Won!");
-                        Console.WriteLine($"{game.CreatorUsername} Lost!");
-                    }
-                    else if (game.State == GameState.Draw)
-                    {
-                        Console.WriteLine("Game over!");
-                        Console.WriteLine("It's Draw");
-                    }
-                    else if ((game.State == GameState.CreatorTurn && game.CreatorUserId == userId) || (game.State == GameState.OpponentTurn && game.OpponentUserId == userId))
-                    {
-                        Console.WriteLine("It's my turn...");
-
-                        while (int.TryParse(Console.ReadLine(), out var input))
-                        {
-                            var choosedPosition = ChoosePosition(input);
-                            gameService.Play(gameId, userId, choosedPosition.Row, choosedPosition.Col);
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("It's opponent turn...");
-                    }
+                    this.CheckStates(gameService, game, userId);
                 }
 
                 Thread.Sleep(250);
@@ -92,37 +56,39 @@ namespace TicTacToe.ConsoleApp
                         Console.WriteLine($"{i+1}. {availableGames[i].Name}");
                     }
 
-                    int chosenGame;
-                    while (!int.TryParse(Console.ReadLine(), out chosenGame) || chosenGame < 1 || chosenGame > availableGames.Count)
+                    int chosenGameId;
+                    while (!int.TryParse(Console.ReadLine(), out chosenGameId) || chosenGameId < 1 || chosenGameId > availableGames.Count)
                     {
                         Console.WriteLine("Enter valid number");
                     }
 
-                    return gameService.Join(availableGames[chosenGame - 1].Id, userId).Id;
+                    return gameService.Join(availableGames[chosenGameId - 1].Id, userId).Id;
                 }
             }
         }
 
         private void PrintBoard(string board)
         {
-            Console.WriteLine(new string('-', 9));
+            var sb = new StringBuilder();
+            sb.AppendLine(new string('-', 9));
 
             for (int i = 0, cell = 0; i < 3; i++)
             {
-                Console.Write("| ");
+                sb.Append("| ");
 
                 for (var j = 0; j < 3; j++)
                 {
-                    Console.Write($"{board[cell++]} ");
+                    sb.Append($"{board[cell++]} ");
                 }
 
-                Console.WriteLine("|");
+                sb.AppendLine("|");
             }
 
-            Console.WriteLine(new string('-', 9));
+            sb.AppendLine(new string('-', 9));
+            Console.WriteLine(sb.ToString());
         }
 
-        private (int Row, int Col) ChoosePosition(int number)
+        private (int Row, int Col) GetPosition(int number)
         {
             switch (number)
             {
@@ -139,7 +105,58 @@ namespace TicTacToe.ConsoleApp
                 case 9: return (0, 2);
             }
 
-            throw new ValidationException("Invalid input.");
+            throw new InvalidPositionException("Invalid position.");
+        }
+
+        private void CheckStates(GameService gameService, GameStatusOutput game, Guid userId)
+        {
+            if (game.State == GameState.WaitingForASecondPlayer)
+            {
+                Console.WriteLine("Waiting for a second player...");
+            }
+            else if (game.State == GameState.CreatorVictory)
+            {
+                Console.WriteLine("Game over! \n");
+                Console.WriteLine($"{game.CreatorUsername} won!");
+                Console.WriteLine($"{game.OpponentUsername} lost!");
+            }
+            else if (game.State == GameState.OpponentVictory)
+            {
+                Console.WriteLine("Game over! \n");
+                Console.WriteLine($"{game.OpponentUsername} Won!");
+                Console.WriteLine($"{game.CreatorUsername} Lost!");
+            }
+            else if (game.State == GameState.Draw)
+            {
+                Console.WriteLine("Game over!");
+                Console.WriteLine("It's Draw");
+            }
+            else if ((game.State == GameState.CreatorTurn && game.CreatorUserId == userId) || (game.State == GameState.OpponentTurn && game.OpponentUserId == userId))
+            {
+                Console.WriteLine("It's my turn...");
+
+                while (int.TryParse(Console.ReadLine(), out var input))
+                {
+                    try
+                    {
+                        var chosenPosition = this.GetPosition(input);
+                        gameService.Play(game.Id, userId, chosenPosition.Row, chosenPosition.Col);
+                        break;
+                    }
+                    catch (InvalidPositionException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                    catch (ValidationException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("It's opponent turn...");
+            }
         }
     }
 }

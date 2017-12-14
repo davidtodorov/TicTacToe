@@ -55,15 +55,17 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public GameStatusOutput Join(Guid gameId, Guid userId)
         {
-            //// Check if all games are available for second player, filter game, similar to getAvailableGames
-            //// Opponent user (userId)
-
             var game = this.context.Games
+                .Where(x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != userId)
                 .Include(g => g.CreatorUser)
                 .Include(g => g.OpponentUser)
                 .FirstOrDefault(g => g.GameId == gameId);
 
-            //// Check for existing game
+            if (game == null)
+            {
+                throw new NotFoundException($"The game with identifier: '{gameId}' was not found.");
+            }
+
             var randNum = randomGenerator.Next(0, 2);
             game.State = randNum == 0 ? GameState.CreatorTurn : GameState.OpponentTurn;
             game.OpponentUserId = userId;
@@ -90,73 +92,84 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public GameStatusOutput Play(Guid gameId, Guid userId, int row, int col)
         {
-            // Add check for userId to be creator or opponent
-            // If exists
-            // check the state if it's creator or opponent turn
-            var game = this.context.Games.Include(x => x.CreatorUser)
+            var game = this.context.Games.Include(g => g.CreatorUser)
                 .Include(x => x.OpponentUser)
+                .Where(g => g.CreatorUserId == userId || g.OpponentUserId == userId)
+                .Where(g => g.State == GameState.CreatorTurn || g.State == GameState.OpponentTurn)
                 .FirstOrDefault(g => g.GameId == gameId);
 
-            char playerChar;
-
-            if (game.State == GameState.CreatorTurn)
+            if (game == null)
             {
-                // Check if its creator, throw validation exception, not your turn
-                playerChar = 'X';
-            }
-            else
-            {
-                // Check if its opponent
-                playerChar = 'O';
+                throw new NotFoundException($"The game with identifier: '{gameId}' was not found.");
             }
             
+            if ((game.State == GameState.CreatorTurn && game.CreatorUserId != userId) || (game.State == GameState.OpponentTurn && game.OpponentUserId != userId))
+            {
+                throw new ValidationException($"It's not your turn");
+            }
+
+            char playerChar = game.State == GameState.CreatorTurn ? 'X' : 'O';
+
             var boardArray = game.Board.ToCharArray();
+
+            if (!gameValidator.IsValidPosition(row))
+            {
+                throw new InvalidPositionException($"The input row: {row} is invalid");
+            }
+
+            if (!gameValidator.IsValidPosition(col))
+            {
+                throw new InvalidPositionException($"The input col: {col} is invalid");
+            }
 
             // Check if position is valid, create method in gameResultValidator
             // Check if the position is taken, =! '-'
             var position = 3 * row + col;
+  
+            var isTaken = gameValidator.IsPositionTaken(game.Board, position);
+            if (isTaken)
+            {
+                throw new ValidationException($"The position is already taken!");
+            }
 
             boardArray[position] = playerChar;
             string boardInsertedPosition = string.Join(string.Empty, boardArray);
             var gameResult = gameValidator.GetGameResult(boardInsertedPosition);
 
             game.Board = boardInsertedPosition;
-
-            // Create private method for if/else
-            if (gameResult == GameResult.NotFinished)
-            {
-                if (game.State == GameState.CreatorTurn)
-                {
-                    game.State = GameState.OpponentTurn;
-                }
-                else if (game.State == GameState.OpponentTurn)
-                {
-                    game.State = GameState.CreatorTurn;
-                }
-            }
-            else if (gameResult == GameResult.WonByX)
-            {
-                game.State = GameState.CreatorVictory;
-                CreateScore(game, game.CreatorUserId, ScoreStatus.Win);
-                CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Loss);
-            }
-            else if (gameResult == GameResult.WonByO)
-            {
-                game.State = GameState.OpponentVictory;
-                CreateScore(game, game.CreatorUserId, ScoreStatus.Loss);
-                CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Win);
-            }
-            else if (gameResult == GameResult.Draw)
-            {
-                game.State = GameState.Draw;
-                CreateScore(game, game.CreatorUserId, ScoreStatus.Draw);
-                CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Draw);
-            }
+            
+            this.CheckGameResult(gameResult, game);
             
             context.SaveChanges();
             return game.ToGameStatus();
         }
         
+        private void CheckGameResult(GameResult gameResult, Game game)
+        {
+            if (gameResult == GameResult.NotFinished)
+            {
+                game.State = game.State == GameState.CreatorTurn ? GameState.OpponentTurn : GameState.CreatorTurn;
+            }
+            else if (gameResult == GameResult.WonByX)
+            {
+                game.State = GameState.CreatorVictory;
+                this.CreateScore(game, game.CreatorUserId, ScoreStatus.Win);
+                this.CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Loss);
+            }
+            else if (gameResult == GameResult.WonByO)
+            {
+                game.State = GameState.OpponentVictory;
+                this.CreateScore(game, game.CreatorUserId, ScoreStatus.Loss);
+                this.CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Win);
+            }
+            else if (gameResult == GameResult.Draw)
+            {
+                game.State = GameState.Draw;
+                this.CreateScore(game, game.CreatorUserId, ScoreStatus.Draw);
+                this.CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Draw);
+            }
+        }
+
         private void CreateScore(Game game, Guid userId, ScoreStatus status)
         {
             var score = new Score()

@@ -59,6 +59,16 @@ namespace TicTacToe.Services
             }       
         }
 
+        public bool IsValidPosition(int position)
+        {
+            return position >= 0  && position <= 2;
+        }
+
+        public bool IsPositionTaken(string board, int position)
+        {
+            return board[position] != '-';
+        }
+
         private GameResult GetWinner(char playerChar)
         {
             if (playerChar == 'X')
