@@ -19,9 +19,5 @@ namespace TicTacToe.Data.Extensions
 
             return !total.Except(applied).Any();
         }
-
-        public static void EnsureSeeded(this TicTacToeDbContext context)
-        {
-        }
     }
 }
