@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TicTacToe.ConsoleApp.Configuration;
+using TicTacToe.Data;
 using TicTacToe.Data.Extensions;
 using TicTacToe.Services;
 using TicTacToe.Services.Interfaces.Models;
@@ -18,20 +18,33 @@ namespace TicTacToe.ConsoleApp
                 {
                     context.Database.Migrate();
                     context.EnsureSeeded();
-
                     Console.WriteLine("Database migrated...");
                 }
-
-                var userService = new UserService(context);
-
+                
                 // Add a new user to the database
-                var newUser = new UserRegistrationInput() { FirstName = "Test", LastName = "User" };
-                userService.Register(newUser);
-
-                // Prints all users from the database
-                var users = userService.All();
-                Console.WriteLine($"All users: {string.Join(", ", users.Select(x => x.FirstName + " " + x.LastName))}");
+                var user = RegisterUser(context);
+                StartNewGame(user.Id);
             }
+        }
+
+        private static UserInfoOutput RegisterUser(TicTacToeDbContext context)
+        {
+            Console.WriteLine("Enter your First Name");
+            string userFirstName = Console.ReadLine();
+
+            Console.WriteLine("Enter your Last Name");
+            string userLastName = Console.ReadLine();
+
+            var userService = new UserService(context);
+            return userService.Register(new UserRegistrationInput() { FirstName = userFirstName, LastName = userLastName });
+        }
+
+        private static void StartNewGame(Guid userId)
+        {
+            var gameEngine = new GameEngine();
+
+            var currentGameId = gameEngine.GetOrCreateGame(userId);
+            gameEngine.PlayGame(currentGameId, userId);
         }
     }
 }

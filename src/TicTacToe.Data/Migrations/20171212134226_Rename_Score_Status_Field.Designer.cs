@@ -12,9 +12,10 @@ using TicTacToe.Models;
 namespace TicTacToe.Data.Migrations
 {
     [DbContext(typeof(TicTacToeDbContext))]
-    partial class TicTacToeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171212134226_Rename_Score_Status_Field")]
+    partial class Rename_Score_Status_Field
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
