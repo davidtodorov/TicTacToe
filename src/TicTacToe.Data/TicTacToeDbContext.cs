@@ -10,7 +10,7 @@ namespace TicTacToe.Data
             : base(options)
         {
         }
-
+        
         public DbSet<Game> Games { get; set; }
 
         public DbSet<Notification> Notifications { get; set; }

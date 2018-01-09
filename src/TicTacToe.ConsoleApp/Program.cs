@@ -17,7 +17,6 @@ namespace TicTacToe.ConsoleApp
                 if (!context.AllMigrationsApplied())
                 {
                     context.Database.Migrate();
-                    context.EnsureSeeded();
                     Console.WriteLine("Database migrated...");
                 }
                 
