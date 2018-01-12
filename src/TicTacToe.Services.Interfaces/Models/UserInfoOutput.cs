@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace TicTacToe.Services.Interfaces.Models
+﻿namespace TicTacToe.Services.Interfaces.Models
 {
     public class UserInfoOutput
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string FirstName { get; set; }
 

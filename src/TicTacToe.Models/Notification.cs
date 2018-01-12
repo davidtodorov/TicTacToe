@@ -22,7 +22,8 @@ namespace TicTacToe.Models
         /// <summary>
         /// Gets or sets the user's identifier that generates the notification.
         /// </summary>
-        public Guid DestinationUserId { get; set; }
+        [Required]
+        public string DestinationUserId { get; set; }
 
         /// <summary>
         /// Gets or sets the user that receives the notification.
@@ -33,7 +34,8 @@ namespace TicTacToe.Models
         /// <summary>
         /// Gets or sets the user's identifier that receives the notification.
         /// </summary>
-        public Guid SourceUserId { get; set; }
+        [Required]
+        public string SourceUserId { get; set; }
 
         /// <summary>
         /// Gets or sets the user that receives the notification.

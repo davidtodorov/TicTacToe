@@ -17,7 +17,8 @@ namespace TicTacToe.Models
         [Range(1, 3)]
         public ScoreStatus Status { get; set; }
         
-        public Guid UserId { get; set; }
+        [Required]
+        public string UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
         public User User { get; set; }

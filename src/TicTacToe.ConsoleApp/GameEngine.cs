@@ -12,7 +12,7 @@ namespace TicTacToe.ConsoleApp
 {
     public class GameEngine
     {
-        public void PlayGame(Guid gameId, Guid userId)
+        public void PlayGame(Guid gameId, string userId)
         {
             while (true)
             {
@@ -29,7 +29,7 @@ namespace TicTacToe.ConsoleApp
             }
         }
 
-        public Guid GetOrCreateGame(Guid userId)
+        public Guid GetOrCreateGame(string userId)
         {
             using (var context = new TicTacToeDbContextFactory().CreateDbContext())
             {
@@ -108,7 +108,7 @@ namespace TicTacToe.ConsoleApp
             throw new InvalidPositionException("Invalid position.");
         }
 
-        private void CheckStates(GameService gameService, GameStatusOutput game, Guid userId)
+        private void CheckStates(GameService gameService, GameStatusOutput game, string userId)
         {
             if (game.State == GameState.WaitingForASecondPlayer)
             {

@@ -10,7 +10,7 @@ namespace TicTacToe.Services.Mappings
         public static readonly Expression<Func<User, UserInfoOutput>> ToUserInfoOutput =
             entity => new UserInfoOutput
             {
-                Id = entity.UserId,
+                Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 PhotoUrl = entity.PhotoUrl
@@ -20,7 +20,7 @@ namespace TicTacToe.Services.Mappings
         {
             return new UserInfoOutput
             {
-                Id = entity.UserId,
+                Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 PhotoUrl = entity.PhotoUrl

@@ -38,7 +38,7 @@ namespace TicTacToe.ConsoleApp
             return userService.Register(new UserRegistrationInput() { FirstName = userFirstName, LastName = userLastName });
         }
 
-        private static void StartNewGame(Guid userId)
+        private static void StartNewGame(string userId)
         {
             var gameEngine = new GameEngine();
 

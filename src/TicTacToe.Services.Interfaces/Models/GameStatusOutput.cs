@@ -11,11 +11,11 @@ namespace TicTacToe.Services.Interfaces.Models
 
         public GameState State { get; set; }
 
-        public Guid CreatorUserId { get; set; }
+        public string CreatorUserId { get; set; }
 
         public string CreatorUsername { get; set; }
 
-        public Guid? OpponentUserId { get; set; }
+        public string OpponentUserId { get; set; }
 
         public string OpponentUsername { get; set; }
     }

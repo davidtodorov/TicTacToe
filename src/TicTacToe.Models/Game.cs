@@ -52,12 +52,13 @@ namespace TicTacToe.Models
         [Range(1, 6)]
         public GameState State { get; set; }
 
-        public Guid CreatorUserId { get; set; }
+        [Required]
+        public string CreatorUserId { get; set; }
 
         [ForeignKey(nameof(CreatorUserId))]
         public User CreatorUser { get; set; }
 
-        public Guid? OpponentUserId { get; set; }
+        public string OpponentUserId { get; set; }
 
         [ForeignKey(nameof(OpponentUserId))]
         public User OpponentUser { get; set; }

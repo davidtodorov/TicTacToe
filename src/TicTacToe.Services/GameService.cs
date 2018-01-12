@@ -25,7 +25,7 @@ namespace TicTacToe.Services
         }
 
         /// <inheritdoc />
-        public ICollection<AvailableGameInfoOutput> GetAvailableGames(Guid userId)
+        public ICollection<AvailableGameInfoOutput> GetAvailableGames(string userId)
         {
             var games = this.context.Games.Where(x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != userId)
                                           .OrderByDescending(x => x.CreationDate)
@@ -35,7 +35,7 @@ namespace TicTacToe.Services
         }
 
         /// <inheritdoc />
-        public GameStatusOutput Create(GameCreationInput input, Guid creatorUserId)
+        public GameStatusOutput Create(GameCreationInput input, string creatorUserId)
         {
             var game = new Game()
             {
@@ -53,7 +53,7 @@ namespace TicTacToe.Services
         }
 
         /// <inheritdoc />
-        public GameStatusOutput Join(Guid gameId, Guid userId)
+        public GameStatusOutput Join(Guid gameId, string userId)
         {
             var game = this.context.Games
                 .Where(x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != userId)
@@ -76,7 +76,7 @@ namespace TicTacToe.Services
         }
 
         /// <inheritdoc />
-        public GameStatusOutput Status(Guid gameId, Guid userId)
+        public GameStatusOutput Status(Guid gameId, string userId)
         {
             var game = this.context.Games.Select(GameMappings.ToGameStatusOutput)
                                          .FirstOrDefault(g => g.Id == gameId && (userId == g.CreatorUserId || userId == g.OpponentUserId));
@@ -90,7 +90,7 @@ namespace TicTacToe.Services
         }
 
         /// <inheritdoc />
-        public GameStatusOutput Play(Guid gameId, Guid userId, int row, int col)
+        public GameStatusOutput Play(Guid gameId, string userId, int row, int col)
         {
             var game = this.context.Games.Include(g => g.CreatorUser)
                 .Include(x => x.OpponentUser)
@@ -154,23 +154,23 @@ namespace TicTacToe.Services
             {
                 game.State = GameState.CreatorVictory;
                 this.CreateScore(game, game.CreatorUserId, ScoreStatus.Win);
-                this.CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Loss);
+                this.CreateScore(game, game.OpponentUserId, ScoreStatus.Loss);
             }
             else if (gameResult == GameResult.WonByO)
             {
                 game.State = GameState.OpponentVictory;
                 this.CreateScore(game, game.CreatorUserId, ScoreStatus.Loss);
-                this.CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Win);
+                this.CreateScore(game, game.OpponentUserId, ScoreStatus.Win);
             }
             else if (gameResult == GameResult.Draw)
             {
                 game.State = GameState.Draw;
                 this.CreateScore(game, game.CreatorUserId, ScoreStatus.Draw);
-                this.CreateScore(game, game.OpponentUserId.Value, ScoreStatus.Draw);
+                this.CreateScore(game, game.OpponentUserId, ScoreStatus.Draw);
             }
         }
 
-        private void CreateScore(Game game, Guid userId, ScoreStatus status)
+        private void CreateScore(Game game, string userId, ScoreStatus status)
         {
             var score = new Score()
             {

@@ -11,7 +11,7 @@ namespace TicTacToe.Services.Interfaces
         /// </summary>
         /// <param name="userId">The opponent user's identifier searching for a game.</param>
         /// <returns>A collection of all available games.</returns>
-        ICollection<AvailableGameInfoOutput> GetAvailableGames(Guid userId);
+        ICollection<AvailableGameInfoOutput> GetAvailableGames(string userId);
 
         /// <summary>
         /// Creates a new game session by given name.
@@ -19,7 +19,7 @@ namespace TicTacToe.Services.Interfaces
         /// <param name="input">The game's input information.</param>
         /// <param name="creatorUserId">The creator user's identifier.</param>
         /// <returns>The status information about the game session.</returns>
-        GameStatusOutput Create(GameCreationInput input, Guid creatorUserId);
+        GameStatusOutput Create(GameCreationInput input, string creatorUserId);
 
         /// <summary>
         /// Joins to a game session by given game's identifier.
@@ -27,7 +27,7 @@ namespace TicTacToe.Services.Interfaces
         /// <param name="gameId">The game's identifier.</param>
         /// <param name="userId">The opponent user's identifier.</param>
         /// <returns>The status information about the game session.</returns>
-        GameStatusOutput Join(Guid gameId, Guid userId);
+        GameStatusOutput Join(Guid gameId, string userId);
 
         /// <summary>
         /// Gets a status information about a game session.
@@ -35,7 +35,7 @@ namespace TicTacToe.Services.Interfaces
         /// <param name="gameId">The game's identifier.</param>
         /// <param name="userId">The user's identifier requesting the status.</param>
         /// <returns>The status information about the game session.</returns>
-        GameStatusOutput Status(Guid gameId, Guid userId);
+        GameStatusOutput Status(Guid gameId, string userId);
 
         /// <summary>
         /// Plays a turn for a given game session.
@@ -45,6 +45,6 @@ namespace TicTacToe.Services.Interfaces
         /// <param name="row">The specified row.</param>
         /// <param name="col">The specified column.</param>
         /// <returns>The status information about the game session.</returns>
-        GameStatusOutput Play(Guid gameId, Guid userId, int row, int col);
+        GameStatusOutput Play(Guid gameId, string userId, int row, int col);
     }
 }

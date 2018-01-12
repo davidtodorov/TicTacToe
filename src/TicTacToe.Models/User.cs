@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace TicTacToe.Models
@@ -13,9 +12,6 @@ namespace TicTacToe.Models
             this.RegistrationDate = DateTime.UtcNow;            
             this.Scores = new List<Score>();
         }
-        
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid UserId { get; set; }
 
         [Required]
         [MaxLength(30)]

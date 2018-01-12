@@ -1,10 +1,11 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TicTacToe.Models;
 
 namespace TicTacToe.Data
 {
-    public class TicTacToeDbContext : DbContext
+    public class TicTacToeDbContext : IdentityDbContext<User>
     {
         public TicTacToeDbContext(DbContextOptions<TicTacToeDbContext> options)
             : base(options)
@@ -17,10 +18,10 @@ namespace TicTacToe.Data
 
         public DbSet<Score> Scores { get; set; }
 
-        public DbSet<User> Users { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
