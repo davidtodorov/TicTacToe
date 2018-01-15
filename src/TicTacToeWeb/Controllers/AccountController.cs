@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TicTacToe.Models;
-using TicTacToeWeb.Models.AccountViewModels;
-using TicTacToeWeb.Models.ManageViewModels;
+using TicTacToeWeb.ViewModels.Account;
 
 namespace TicTacToeWeb.Controllers
 {

@@ -1,0 +1,30 @@
+﻿@model UserIndexViewModel
+@{
+    ViewData["Title"] = "Users";
+    var userList = @Model.AllUsers.ToList();
+}
+
+<div class="container">
+    <h2>Users</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Registered on</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        @for (int i = 0; i < Model.AllUsers.Count; i++)
+        {
+            <tr>
+                <td>@(i+1)</td>
+                <td>@userList[i].FirstName</td>
+                <td>@userList[i].RegistrationDate</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

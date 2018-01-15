@@ -13,6 +13,8 @@ namespace TicTacToe.Services.Interfaces.Models
 
         public string OpponentUsername { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
         public GameState State { get; set; }
     }
 }

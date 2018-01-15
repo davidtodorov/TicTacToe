@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TicTacToeWeb.Models.AccountViewModels
+namespace TicTacToeWeb.ViewModels.Account
 {
     public class RegisterViewModel
     {

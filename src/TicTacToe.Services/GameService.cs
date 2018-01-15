@@ -27,6 +27,11 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public ICollection<AvailableGameInfoOutput> GetAvailableGames(string userId)
         {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                throw new ValidationException("UserId cannot be null");
+            }
+
             var games = this.context.Games.Where(x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != userId)
                                           .OrderByDescending(x => x.CreationDate)
                                           .Select(GameMappings.ToAvailableGameInfoOutput)
@@ -37,6 +42,11 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public GameStatusOutput Create(GameCreationInput input, string creatorUserId)
         {
+            if (string.IsNullOrWhiteSpace(creatorUserId))
+            {
+                throw new ValidationException("UserId cannot be null");
+            }
+
             var game = new Game()
             {
                 Name = input.Name,
@@ -55,6 +65,11 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public GameStatusOutput Join(Guid gameId, string userId)
         {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                throw new ValidationException("UserId cannot be null");
+            }
+
             var game = this.context.Games
                 .Where(x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != userId)
                 .Include(g => g.CreatorUser)
@@ -78,6 +93,11 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public GameStatusOutput Status(Guid gameId, string userId)
         {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                throw new ValidationException("UserId cannot be null");
+            }
+
             var game = this.context.Games.Select(GameMappings.ToGameStatusOutput)
                                          .FirstOrDefault(g => g.Id == gameId && (userId == g.CreatorUserId || userId == g.OpponentUserId));
 
@@ -92,6 +112,11 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public GameStatusOutput Play(Guid gameId, string userId, int row, int col)
         {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                throw new ValidationException("UserId cannot be null");
+            }
+
             var game = this.context.Games.Include(g => g.CreatorUser)
                 .Include(x => x.OpponentUser)
                 .Where(g => g.CreatorUserId == userId || g.OpponentUserId == userId)

@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TicTacToe.Data;
 using TicTacToe.Models;
+using TicTacToe.Services;
+using TicTacToe.Services.Interfaces;
 
 namespace TicTacToeWeb
 {
@@ -22,6 +24,10 @@ namespace TicTacToeWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TicTacToeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IGameResultValidator, GameResultValidator>();
 
             services.AddIdentity<User, IdentityRole>(options =>
             {

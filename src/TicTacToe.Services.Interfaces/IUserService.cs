@@ -9,7 +9,7 @@ namespace TicTacToe.Services.Interfaces
         /// Gets all users from the database.
         /// </summary>
         /// <returns>A collection with users from the database.</returns>
-        ICollection<UserInfoOutput> All();
+        ICollection<UserInfoOutput> AllUsers();
 
         /// <summary>
         /// Registers a user by the given parameters.
