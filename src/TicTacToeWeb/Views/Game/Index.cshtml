@@ -3,7 +3,41 @@
 @{
     ViewData["Title"] = "Games";
     var gameList = @Model.AvailableGames.ToList();
+    var myGameList = @Model.UserGamesInProgress.ToList();
 }
+
+<div class="container">
+    <h2>Your games in progress</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Description</th>
+            <th>Creator</th>
+            <th>Created On</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        @for (int i = 0; i < Model.UserGamesInProgress.Count; i++)
+        {
+            <tr>
+                <td>@(i+1)</td>
+                <td>@myGameList[i].Name</td>
+                <td>@myGameList[i].CreatorUsername</td>
+                <td>@myGameList[i].CreationDate</td>
+                <td>@myGameList[i].State</td>
+                <td>
+                    <a href="#" class="btn btn-primary btn-sm" role="button">Join</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
 
 <div class="container">
     <h2>Available Games</h2>
@@ -27,7 +61,7 @@
                 <td>@(i+1)</td>
                 <td>@gameList[i].Name</td>
                 <td>@gameList[i].CreatorUsername</td>
-                <td>@gameList[i].CreationDate.ToShortDateString()</td>
+                <td>@gameList[i].CreationDate</td>
                 <td>@gameList[i].State</td>
                 <td>
                     <a href="#" class="btn btn-primary btn-sm" role="button">Join</a>

@@ -40,6 +40,21 @@ namespace TicTacToe.Services
         }
 
         /// <inheritdoc />
+        public ICollection<AvailableGameInfoOutput> GetUserGamesInProgress(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                throw new ValidationException("UserId cannot be null");
+            }
+
+            var games = this.context.Games.Where(x => (x.State == GameState.WaitingForASecondPlayer || x.State == GameState.CreatorTurn || x.State == GameState.OpponentTurn) && x.CreatorUserId == userId)
+                .OrderByDescending(x => x.CreationDate)
+                .Select(GameMappings.ToAvailableGameInfoOutput)
+                .ToList();
+            return games;
+        }
+
+        /// <inheritdoc />
         public GameStatusOutput Create(GameCreationInput input, string creatorUserId)
         {
             if (string.IsNullOrWhiteSpace(creatorUserId))
