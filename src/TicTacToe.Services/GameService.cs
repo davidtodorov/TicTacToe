@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using TicTacToe.Data;
 using TicTacToe.Models;
@@ -27,31 +28,21 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public ICollection<AvailableGameInfoOutput> GetAvailableGames(string userId)
         {
-            if (string.IsNullOrWhiteSpace(userId))
-            {
-                throw new ValidationException("UserId cannot be null");
-            }
-
-            var games = this.context.Games.Where(x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != userId)
-                                          .OrderByDescending(x => x.CreationDate)
-                                          .Select(GameMappings.ToAvailableGameInfoOutput)
-                                          .ToList();
-            return games;
+            Expression<Func<Game, bool>> expression = x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != userId;
+            return GetGames(expression, userId); 
         }
 
         /// <inheritdoc />
         public ICollection<AvailableGameInfoOutput> GetUserGamesInProgress(string userId)
         {
-            if (string.IsNullOrWhiteSpace(userId))
-            {
-                throw new ValidationException("UserId cannot be null");
-            }
+            Expression<Func<Game, bool>> expression = x => (x.State == GameState.WaitingForASecondPlayer || x.State == GameState.CreatorTurn || x.State == GameState.OpponentTurn) && x.CreatorUserId == userId;
+            return GetGames(expression, userId);
+        }
 
-            var games = this.context.Games.Where(x => (x.State == GameState.WaitingForASecondPlayer || x.State == GameState.CreatorTurn || x.State == GameState.OpponentTurn) && x.CreatorUserId == userId)
-                .OrderByDescending(x => x.CreationDate)
-                .Select(GameMappings.ToAvailableGameInfoOutput)
-                .ToList();
-            return games;
+        public ICollection<AvailableGameInfoOutput> GetUserJoinedGames(string userId)
+        {
+            Expression<Func<Game, bool>> expression = x => (x.State == GameState.WaitingForASecondPlayer || x.State == GameState.CreatorTurn || x.State == GameState.OpponentTurn) && x.OpponentUserId == userId;
+            return GetGames(expression, userId);
         }
 
         /// <inheritdoc />
@@ -220,6 +211,20 @@ namespace TicTacToe.Services
             };
 
             context.Scores.Add(score);
+        }
+
+        private ICollection<AvailableGameInfoOutput> GetGames(Expression<Func<Game, bool>> expression, string userId)
+        {
+           if (string.IsNullOrWhiteSpace(userId))
+            {
+                throw new ValidationException("UserId cannot be null");
+            }
+
+            return this.context.Games
+                .Where(expression)
+                .OrderByDescending(x => x.CreationDate)
+                .Select(GameMappings.ToAvailableGameInfoOutput)
+                .ToList();
         }
     }
 }

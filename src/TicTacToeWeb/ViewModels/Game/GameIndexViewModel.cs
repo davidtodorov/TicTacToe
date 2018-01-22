@@ -8,5 +8,7 @@ namespace TicTacToeWeb.ViewModels.Game
         public ICollection<AvailableGameInfoOutput> AvailableGames { get; set; }
 
         public ICollection<AvailableGameInfoOutput> UserGamesInProgress { get; set; }
+
+        public ICollection<AvailableGameInfoOutput> UserJoinedGames { get; set; }
     }
 }

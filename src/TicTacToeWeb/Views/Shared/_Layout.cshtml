@@ -23,7 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Game" asp-action="Index">Games</a></li>
                     <li><a asp-area="" asp-controller="User" asp-action="Index">Users</a></li>
-                    <li><a asp-area="" asp-controller="Game" asp-action="Create">Create</a></li>
+                    <li><a asp-area="" asp-controller="Game" asp-action="Create">Create</a></li> @*TODO: Remove this button *@
                 </ul>
 
                 @await Html.PartialAsync("_LoginPartial")

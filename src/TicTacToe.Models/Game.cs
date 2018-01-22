@@ -19,29 +19,16 @@ namespace TicTacToe.Models
         public Guid GameId { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MinLength(ValidationConstants.NAME_MIN_LENGTH)]
+        [MaxLength(ValidationConstants.NAME_MAX_LENGTH)]
         public string Name { get; set; }
 
         [Required]
         [StringLength(9, MinimumLength = 9)]        
         public string Board { get; set; }
-
+        
         [MaxLength(50)]
-        public string HashedPassword
-        {
-            get
-            {
-                return this.hashedPassword;
-            }
-
-            set
-            {
-                if (Visibility == VisibilityType.Protected)
-                {
-                    this.hashedPassword = value;
-                }                
-            }
-        }
+        public string HashedPassword { get; set; }
         
         public DateTime CreationDate { get; set; }
 

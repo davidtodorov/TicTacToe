@@ -170,7 +170,7 @@ namespace TicTacToeWeb.Controllers
 
             logger.LogInformation("User logged out.");
 
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(ErrorController.Index), "Error");
         }
 
         [HttpGet]
@@ -204,7 +204,7 @@ namespace TicTacToeWeb.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(ErrorController.Index), "Error");
             }
         }
 

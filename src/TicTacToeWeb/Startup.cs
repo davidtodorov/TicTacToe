@@ -53,7 +53,7 @@ namespace TicTacToeWeb
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
             }
 
             app.UseStaticFiles();
@@ -62,7 +62,7 @@ namespace TicTacToeWeb
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(name: "default", template: "{controller=Game}/{action=Index}/{id?}");
             });
         }
 

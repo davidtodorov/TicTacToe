@@ -19,6 +19,7 @@ namespace TicTacToeWeb.Controllers
             {
                 AllUsers = this.userService.AllUsers()
             };
+
             return View(viewModel);
         }
     }

@@ -9,16 +9,23 @@ namespace TicTacToe.Services.Interfaces
         /// <summary>
         /// Gets all available games waiting for an opponent.
         /// </summary>
-        /// <param name="userId">The opponent user's identifier searching for a game.</param>
+        /// <param name="userId">The creator user's identifier searching for a game.</param>
         /// <returns>A collection of all available games.</returns>
         ICollection<AvailableGameInfoOutput> GetAvailableGames(string userId);
 
         /// <summary>
         /// Gets all users' games.
         /// </summary>
-        /// <param name="userId">The opponent user's identifier searching for a game.</param>
+        /// <param name="userId">The creator user's identifier searching for a game.</param>
         /// <returns>A collection of all available games.</returns>
         ICollection<AvailableGameInfoOutput> GetUserGamesInProgress(string userId);
+
+        /// <summary>
+        /// Gets all joined users' games.
+        /// </summary>
+        /// <param name="userId">The opponent user's identifier searching for a game.</param>
+        /// <returns>A collection of all available games.</returns>
+        ICollection<AvailableGameInfoOutput> GetUserJoinedGames(string userId);
 
         /// <summary>
         /// Creates a new game session by given name.
