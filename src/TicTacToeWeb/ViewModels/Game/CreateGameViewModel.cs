@@ -12,7 +12,6 @@ namespace TicTacToeWeb.ViewModels.Game
         [MaxLength(30)]
         public string Password { get; set; }
 
-        
-        public VisibilityType Visibility { get; set; }
+        [Range(1, 3)] public VisibilityType Visibility { get; set; } = VisibilityType.Public;
     }
 }

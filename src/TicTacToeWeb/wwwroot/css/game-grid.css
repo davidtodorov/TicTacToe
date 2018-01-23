@@ -1,0 +1,11 @@
+.cell td {
+    display: table-cell;
+    vertical-align: middle;
+    height: 85px;
+    width: auto;
+}
+
+.container-flex {
+    display: table;
+    text-align: center;
+}

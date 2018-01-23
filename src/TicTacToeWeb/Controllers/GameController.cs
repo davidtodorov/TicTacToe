@@ -29,11 +29,6 @@ namespace TicTacToeWeb.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Play()
-        {
-            return null;
-        }
-        
         [HttpGet]
         public IActionResult Create()
         {
@@ -56,9 +51,8 @@ namespace TicTacToeWeb.Controllers
             };
 
             this.gameService.Create(gameCreationInput, this.User.Identity.GetUserId());
-
-            return RedirectToAction(nameof(Index));
-            //return RedirectToAction(nameof(Play));
+            
+            return RedirectToAction(nameof(Play));
         }
 
         [HttpPost]
@@ -67,7 +61,27 @@ namespace TicTacToeWeb.Controllers
         {
             this.gameService.Join(input.GameId, input.UserId);
 
-            return RedirectToAction(nameof(Play));
+            return RedirectToAction(nameof(Join));
+        }
+
+        [HttpGet]
+        public IActionResult Play()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Play(PlayGameViewModel input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Redirect("/");
+            }
+
+            this.gameService.Play(input.GameId, input.UserId, input.Row, input.Col);
+
+            return View();
         }
 
 
