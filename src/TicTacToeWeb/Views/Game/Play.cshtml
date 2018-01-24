@@ -1,11 +1,16 @@
-﻿
+﻿@using TicTacToe.Models
+@model GameStatusViewModel
 @{
     ViewData["Title"] = "Play";
 }
 
 <h2>Play</h2>
 <div class="row">
-    <div class="col-md-4 col-md-push-4 container-flex">
+    <div class="col-md-4 col-md-push-4">
+        @if (Model.State != GameState.WaitingForASecondPlayer)
+        {
+            <h3>@(Model.CreatorUsername)[X] vs @(Model.OpponentUsername)[O]</h3>
+        }
         <table class="table table-bordered table-hover cell">
             <thead >
             <tr >
@@ -28,5 +33,6 @@
 
             </thead>
         </table>
+        <h3>Status: @Model.State</h3>
     </div>
 </div>

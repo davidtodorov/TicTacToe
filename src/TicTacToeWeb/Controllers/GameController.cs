@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TicTacToe.Services.Interfaces;
@@ -41,8 +42,7 @@ namespace TicTacToeWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // TODO: Should show the error on the same page
-                return Redirect("/Game/Create");
+                return RedirectToAction(nameof(Create), input);
             }
 
             var gameCreationInput = new GameCreationInput()
@@ -52,7 +52,7 @@ namespace TicTacToeWeb.Controllers
 
             this.gameService.Create(gameCreationInput, this.User.Identity.GetUserId());
             
-            return RedirectToAction(nameof(Play));
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
@@ -65,9 +65,21 @@ namespace TicTacToeWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Play()
+        public IActionResult Play(Guid id)
         {
-            return View();
+            // W
+            var game = this.gameService.Status(id, User.Identity.GetUserId());
+
+            var statusGame = new GameStatusViewModel()
+            {
+                Id = game.Id,
+                CreatorUsername = game.CreatorUsername,
+                OpponentUsername = game.OpponentUsername,
+                Board = game.Board,
+                State = game.State
+            };
+
+            return View(statusGame);
         }
 
         [HttpPost]

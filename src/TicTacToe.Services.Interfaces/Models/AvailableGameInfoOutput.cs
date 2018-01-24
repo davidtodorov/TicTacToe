@@ -9,7 +9,11 @@ namespace TicTacToe.Services.Interfaces.Models
 
         public string Name { get; set; }
 
+        public string CreatorUserId { get; set; }
+
         public string CreatorUsername { get; set; }
+
+        public string OpponentUserId { get; set; }
 
         public string OpponentUsername { get; set; }
 

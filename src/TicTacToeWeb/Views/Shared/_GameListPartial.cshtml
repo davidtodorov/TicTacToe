@@ -1,4 +1,6 @@
-﻿@model IList<AvailableGameInfoOutput>
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.CodeAnalysis.CSharp.Syntax
+@model IList<AvailableGameInfoOutput>
 
 <table class="table table-striped">
     <thead>
@@ -22,8 +24,16 @@
             <td>@Model[i].CreationDate</td>
             <td>@Model[i].State</td>
             <td>
-                <a class="btn btn-primary btn-sm" role="button"
-                   asp-area="" asp-controller="Game" asp-action="Play">Play</a>
+                @if (Model[i].CreatorUserId == User.Identity.GetUserId() || Model[i].OpponentUserId == User.Identity.GetUserId())
+                {
+                    <a class="btn btn-primary btn-sm" role="button"
+                       asp-area="" asp-controller="Game" asp-action="Play" asp-route-id="@Model[i].Id">Play</a>
+                }
+                else if(Model[i].CreatorUserId != User.Identity.GetUserId())
+                {
+                    <a class="btn btn-primary btn-sm" role="button"
+                       asp-area="" asp-controller="Game" asp-action="Join" asp-route-id="@Model[i].Id">Join</a>
+                } 
             </td>
         </tr>
     }
