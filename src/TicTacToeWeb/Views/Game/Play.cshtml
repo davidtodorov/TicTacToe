@@ -1,4 +1,6 @@
-﻿@using TicTacToe.Models
+﻿@using System.ComponentModel.DataAnnotations
+@using TicTacToe.Data.Extensions
+@using TicTacToe.Models
 @model GameStatusViewModel
 @{
     ViewData["Title"] = "Play";
@@ -33,6 +35,6 @@
 
             </thead>
         </table>
-        <h3>Status: @Model.State</h3>
+        <h3>Status: @(Model.State.GetAttribute<DisplayAttribute>().Name)</h3>
     </div>
 </div>

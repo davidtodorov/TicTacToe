@@ -56,18 +56,18 @@ namespace TicTacToeWeb.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // TODO: Remove the attribute
         public IActionResult Join(JoinGameViewModel input)
         {
-            this.gameService.Join(input.GameId, input.UserId);
+            this.gameService.Join(input.GameId, this.User.Identity.GetUserId());
 
+            // Return Json({ success: true }) on success or Json({ success: false, message: errorMessage }) on error
             return RedirectToAction(nameof(Join));
         }
 
         [HttpGet]
         public IActionResult Play(Guid id)
         {
-            // W
             var game = this.gameService.Status(id, User.Identity.GetUserId());
 
             var statusGame = new GameStatusViewModel()

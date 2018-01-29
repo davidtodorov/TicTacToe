@@ -1,5 +1,6 @@
-﻿@using Microsoft.AspNet.Identity
-@using Microsoft.CodeAnalysis.CSharp.Syntax
+﻿@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNet.Identity
+@using TicTacToe.Data.Extensions
 @model IList<AvailableGameInfoOutput>
 
 <table class="table table-striped">
@@ -22,7 +23,7 @@
             <td>@Model[i].Name</td>
             <td>@Model[i].CreatorUsername</td>
             <td>@Model[i].CreationDate</td>
-            <td>@Model[i].State</td>
+            <td>@(Model[i].State.GetAttribute<DisplayAttribute>().Name)</td>
             <td>
                 @if (Model[i].CreatorUserId == User.Identity.GetUserId() || Model[i].OpponentUserId == User.Identity.GetUserId())
                 {

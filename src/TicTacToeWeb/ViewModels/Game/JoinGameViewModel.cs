@@ -1,14 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using TicTacToeWeb.Extensions;
 
 namespace TicTacToeWeb.ViewModels.Game
 {
     public class JoinGameViewModel
     {
-        [Required]
+        [GuidValdationAttribute.NoEmptyGuid]
         public Guid GameId { get; set; }
-
-        [Required]
-        public string UserId { get; set; }
     }
 }
