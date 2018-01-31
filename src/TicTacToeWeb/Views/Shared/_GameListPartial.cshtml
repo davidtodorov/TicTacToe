@@ -4,39 +4,41 @@
 @model IList<AvailableGameInfoOutput>
 
 <table class="table table-striped">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>Description</th>
-        <th>Creator</th>
-        <th>Created On</th>
-        <th>Status</th>
-        <th></th>
+    <thead class="container">
+    <tr class="row">
+        <th class="col-sm-1">#</th>
+        <th class="col-sm-2"> Description</th>
+        <th class="col-sm-2"> Creator</th>
+        <th class="col-sm-3"> Created On</th>
+        <th class="col-sm-3"> Status</th>
+        <th class="col-sm-2"> </th>
     </tr>
     </thead>
-    <tbody>
 
+    <tbody class="container">
     @for (int i = 0; i < Model.Count; i++)
     {
-        <tr>
-            <td>@(i + 1)</td>
-            <td>@Model[i].Name</td>
-            <td>@Model[i].CreatorUsername</td>
-            <td>@Model[i].CreationDate</td>
-            <td>@(Model[i].State.GetAttribute<DisplayAttribute>().Name)</td>
-            <td>
+        <tr class="row">
+            <td class="col-sm-1">@(i + 1)</td>
+            <td class="col-sm-2">@Model[i].Name</td>
+            <td class="col-sm-2">@Model[i].CreatorUsername</td>
+            <td class="col-sm-3">@Model[i].CreationDate</td>
+            <td class="col-sm-3">@(Model[i].State.GetAttribute<DisplayAttribute>().Name)</td>
+            <td class="col-sm-2">
                 @if (Model[i].CreatorUserId == User.Identity.GetUserId() || Model[i].OpponentUserId == User.Identity.GetUserId())
                 {
-                    <a class="btn btn-primary btn-sm" role="button"
-                       asp-area="" asp-controller="Game" asp-action="Play" asp-route-id="@Model[i].Id">Play</a>
+                    <a class="btn btn-primary btn-sm playButton" role="button" game-id="@Model[i].Id">Play</a>
                 }
                 else if(Model[i].CreatorUserId != User.Identity.GetUserId())
                 {
-                    <a class="btn btn-primary btn-sm" role="button"
-                       asp-area="" asp-controller="Game" asp-action="Join" asp-route-id="@Model[i].Id">Join</a>
+                    <a class="btn btn-primary btn-sm joinGameButton" role="button" game-id="@Model[i].Id">Join</a>
                 } 
             </td>
         </tr>
     }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="~/js/games.js"></script>
+}

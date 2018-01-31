@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TicTacToe.Services.Exceptions;
 using TicTacToe.Services.Interfaces;
 using TicTacToe.Services.Interfaces.Models;
 using TicTacToeWeb.ViewModels.Game;
@@ -56,13 +57,25 @@ namespace TicTacToeWeb.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken] // TODO: Remove the attribute
+        ////[ValidateAntiForgeryToken]
         public IActionResult Join(JoinGameViewModel input)
         {
-            this.gameService.Join(input.GameId, this.User.Identity.GetUserId());
-
-            // Return Json({ success: true }) on success or Json({ success: false, message: errorMessage }) on error
-            return RedirectToAction(nameof(Join));
+            // TODO: On error return Json({ success: false, message: errorMessage })
+            // TODO: Try to add [ValidateAntiForgeryToken] and to send it in the AJAX request
+            
+            try
+            {
+                this.gameService.Join(input.GameId, this.User.Identity.GetUserId());
+                return this.Json(new { Success = true });
+            }
+            catch (ValidationException e)
+            {
+                return this.Json(new {Success = false});
+            }
+            catch (NotFoundException e)
+            {
+                return this.Json(new { Success = false });
+            }
         }
 
         [HttpGet]

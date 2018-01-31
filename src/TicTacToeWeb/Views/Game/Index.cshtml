@@ -6,7 +6,7 @@
 
 <div class="container">
     
-   <div class="row">
+    <div class="row">
         <div class="col-sm-12">
             <div class="text-center" >
                 <a class="btn btn-primary" style="margin-top: 20px" role="button"
@@ -14,19 +14,34 @@
             </div>
         </div>
     </div>
+    
+    
+    @if (Model.UserGamesInProgress.Count != 0)
+    {
+        <div class="row">
+            <h2>Games in progress</h2>
+            @await Html.PartialAsync("_GameListPartial", Model.UserGamesInProgress.ToList())
+        </div>
+    }
+    
+    @if (Model.UserJoinedGames.Count != 0)
+    {
+        <div class="row">
+            <h2>Joined games</h2>
+            @await Html.PartialAsync("_GameListPartial", Model.UserJoinedGames.ToList())
+        </div>
+    }
 
-    <div class="row">
-        <h2>Games in progress</h2>
-        @await Html.PartialAsync("_GameListPartial", Model.UserGamesInProgress.ToList())
-    </div>
-
-    <div class="row">
-        <h2>Joined games</h2>
-        @await Html.PartialAsync("_GameListPartial", Model.UserJoinedGames.ToList())
-    </div>
-
-    <div class="row">
-        <h2>Available Games</h2>
-        @await Html.PartialAsync("_GameListPartial", Model.AvailableGames.ToList())
-    </div>
+    @if (Model.AvailableGames.Count != 0)
+    {
+        <div class="row">
+            <h2>Available Games</h2>
+            @await Html.PartialAsync("_GameListPartial", Model.AvailableGames.ToList())
+        </div>
+    }
+    
 </div>
+
+@section Scripts {
+    <script src="~/js/games.js"></script>
+}

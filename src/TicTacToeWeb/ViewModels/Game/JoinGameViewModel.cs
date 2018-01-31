@@ -5,7 +5,7 @@ namespace TicTacToeWeb.ViewModels.Game
 {
     public class JoinGameViewModel
     {
-        [GuidValdationAttribute.NoEmptyGuid]
+        [NoEmptyGuid]
         public Guid GameId { get; set; }
     }
 }
