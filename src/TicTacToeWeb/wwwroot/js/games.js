@@ -11,7 +11,8 @@
 
         $.post("/game/join", { GameId: gameId }, function (result) {
             if (result.success === true) {
-                console.log(result);
+                window.location.replace("/game/play/" + gameId);
+                
             }
             
         });

@@ -60,7 +60,6 @@ namespace TicTacToeWeb.Controllers
         ////[ValidateAntiForgeryToken]
         public IActionResult Join(JoinGameViewModel input)
         {
-            // TODO: On error return Json({ success: false, message: errorMessage })
             // TODO: Try to add [ValidateAntiForgeryToken] and to send it in the AJAX request
             
             try
