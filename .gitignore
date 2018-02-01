@@ -289,4 +289,4 @@ __pycache__/
 
 *.Cache
 
-*wwwroot/lib
+src/TicTacToeWeb/wwwroot/lib/
