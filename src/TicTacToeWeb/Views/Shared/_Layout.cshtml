@@ -8,37 +8,37 @@
     @await Html.PartialAsync("_StylesPartial")
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Game" asp-action="Index" class="navbar-brand">Tic Tac Toe</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Game" asp-action="Index">Games</a></li>
-                    <li><a asp-area="" asp-controller="User" asp-action="Index">Users</a></li>
-                </ul>
-
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a asp-area="" asp-controller="Game" asp-action="Index" class="navbar-brand">Tic Tac Toe</a>
         </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - TicTacToeWeb</p>
-        </footer>
-    </div>
-    
-    @await Html.PartialAsync("_ScriptsPartial")
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a asp-area="" asp-controller="Game" asp-action="Index">Games</a></li>
+                <li><a asp-area="" asp-controller="User" asp-action="Index">Users</a></li>
+            </ul>
 
-    @RenderSection("Scripts", required: false)
+            @await Html.PartialAsync("_LoginPartial")
+        </div>
+    </div>
+</nav>
+<div class="container body-content">
+    @RenderBody()
+    <hr />
+    <footer>
+        <p>&copy; 2018 - TicTacToeWeb</p>
+    </footer>
+</div>
+    
+@await Html.PartialAsync("_ScriptsPartial")
+
+@RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -28,7 +28,9 @@ namespace TicTacToe.Services
         /// <inheritdoc />
         public ICollection<AvailableGameInfoOutput> GetAvailableGames(string userId)
         {
-            Expression<Func<Game, bool>> expression = x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != userId;
+            Expression<Func<Game, bool>> expression = x => x.State == GameState.WaitingForASecondPlayer 
+                                                           && x.CreatorUserId != userId 
+                                                           && (x.Visibility == VisibilityType.Public || x.Visibility == VisibilityType.Protected);
             return GetGames(expression, userId); 
         }
 

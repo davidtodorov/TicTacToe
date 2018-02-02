@@ -43,7 +43,7 @@ namespace TicTacToeWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Create), input);
+                return View(input);
             }
 
             var gameCreationInput = new GameCreationInput()
@@ -51,29 +51,33 @@ namespace TicTacToeWeb.Controllers
                 Name = input.Name
             };
 
-            this.gameService.Create(gameCreationInput, this.User.Identity.GetUserId());
-            
-            return RedirectToAction(nameof(Index));
+            var createdGame = this.gameService.Create(gameCreationInput, this.User.Identity.GetUserId());
+
+            return RedirectToAction(nameof(Play), new
+            {
+                Id = createdGame.Id
+            });
+
         }
 
         [HttpPost]
-        ////[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult Join(JoinGameViewModel input)
         {
-            // TODO: Try to add [ValidateAntiForgeryToken] and to send it in the AJAX request
-            
             try
             {
                 this.gameService.Join(input.GameId, this.User.Identity.GetUserId());
-                return this.Json(new { Success = true });
+                return this.Json(new {Success = true});
             }
-            catch (ValidationException e)
+            catch (Exception e)
             {
-                return this.Json(new {Success = false});
-            }
-            catch (NotFoundException e)
-            {
-                return this.Json(new { Success = false });
+                var exceptionMessage = e is ValidationException || e is NotFoundException ? e.Message : "An error occured";
+                
+                return this.Json(new
+                {
+                    Success = false,
+                    Exception = exceptionMessage
+                });
             }
         }
 

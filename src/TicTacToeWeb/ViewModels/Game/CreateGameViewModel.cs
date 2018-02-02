@@ -13,6 +13,7 @@ namespace TicTacToeWeb.ViewModels.Game
         public string Password { get; set; }
 
         [Range(1, 3)]
+        [DataType(DataType.Password)]
         public VisibilityType Visibility { get; set; } = VisibilityType.Public;
     }
 }
