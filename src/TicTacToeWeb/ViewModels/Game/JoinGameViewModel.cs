@@ -7,5 +7,7 @@ namespace TicTacToeWeb.ViewModels.Game
     {
         [NoEmptyGuid]
         public Guid GameId { get; set; }
+
+        public string Password { get; set; }
     }
 }

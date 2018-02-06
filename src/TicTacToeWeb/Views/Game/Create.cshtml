@@ -19,16 +19,19 @@
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     
-                    <div class="form-group col-md-4 visibility-type">
+                    <div class="form-group col-md-4 ">
                         <label asp-for="Visibility">Game Type</label>
-                        @Html.DropDownList("VisibilityType",
-                            Html.GetEnumSelectList<VisibilityType>(), new {@class = "form-control"})
+                       
+                        @Html.DropDownListFor(v => v.Visibility,
+                            Html.GetEnumSelectList(typeof(VisibilityType)),
+                            new { @class = "visibility-type form-control" })
+                        <span asp-validation-for="Visibility" class="text-danger" />
                     </div>
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-4 gamePassword " style="display: none;">
                         <label asp-for="Password"></label>
                         <input asp-for="Password" type="password" class="form-control"/>
-                        <span asp-validation-for="Password"></span>
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-default create-game-btn">Submit</button>

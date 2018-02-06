@@ -71,7 +71,7 @@ namespace TicTacToe.Services
         }
 
         /// <inheritdoc />
-        public GameStatusOutput Join(Guid gameId, string userId)
+        public GameStatusOutput Join(GameJoinInput input, string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
             {
@@ -82,12 +82,14 @@ namespace TicTacToe.Services
                 .Where(x => x.State == GameState.WaitingForASecondPlayer && x.CreatorUserId != userId)
                 .Include(g => g.CreatorUser)
                 .Include(g => g.OpponentUser)
-                .FirstOrDefault(g => g.GameId == gameId);
+                .FirstOrDefault(g => g.GameId == input.GameId);
 
             if (game == null)
             {
-                throw new NotFoundException($"The game with identifier: '{gameId}' was not found.");
+                throw new NotFoundException($"The game cannot be found.");
             }
+
+            ValidateGamePassword(game.Visibility, input.Password, game.HashedPassword);
 
             var randNum = randomGenerator.Next(0, 2);
             game.State = randNum == 0 ? GameState.CreatorTurn : GameState.OpponentTurn;
@@ -175,6 +177,14 @@ namespace TicTacToe.Services
             
             context.SaveChanges();
             return game.ToGameStatus();
+        }
+
+        public void ValidateGamePassword(VisibilityType visibility, string password, string gamePassword)
+        {
+            if (visibility == VisibilityType.Protected && password != gamePassword)
+            {
+                throw new ValidationException("Input password doesn't match");
+            }
         }
         
         private void CheckGameResult(GameResult gameResult, Game game)

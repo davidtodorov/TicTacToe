@@ -1,10 +1,20 @@
 ﻿$(document).ready(function () {
+    $('.openJoinGameWindow').on('click', function () {
+        var that = $(this);
+        var gameId = that.attr('game-id');
+
+        $('#joinGameWindow #gamePassword').val('');
+        $('#joinGameWindow .joinGameButton').attr('game-id', gameId);
+        $('#joinGameWindow').modal('toggle');
+    });
+
     $('.joinGameButton').on('click', function () {
         var that = $(this);
         var gameId = that.attr('game-id');
+        var password = $('#joinGameWindow #gamePassword').val();
         var token = $('input[name="__RequestVerificationToken"]').val();
 
-        $.post("/game/join", { GameId: gameId, __RequestVerificationToken: token}, function (result) {
+        $.post("/game/join", { GameId: gameId, Password: password, __RequestVerificationToken: token }, function (result) {
             if (result.success === true) {
                 window.location.replace("/game/play/" + gameId);
 
@@ -30,14 +40,9 @@
             }
         });
     });
+});
 
-
-    // TODO: on change enum = protected, display:none
-    function myFunction() {
-        $('.visibility-type').on('change',
-            function() {
-                
-
-            });
-    }
+$('.visibility-type').change(function (e) {
+    var type = $(".visibility-type").val();
+    $('.gamePassword').toggle(type === '3');
 });

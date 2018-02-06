@@ -17,7 +17,8 @@ namespace TicTacToe.Services.Mappings
                 CreatorUserId = entity.CreatorUserId,
                 OpponentUsername = entity.OpponentUser != null ? entity.OpponentUser.FirstName : null,
                 OpponentUserId = entity.OpponentUserId,
-                State = entity.State
+                State = entity.State,
+                Visibility = entity.Visibility
             };
 
         public static readonly Expression<Func<Game, GameStatusOutput>> ToGameStatusOutput =
@@ -29,7 +30,8 @@ namespace TicTacToe.Services.Mappings
                 CreatorUsername = entity.CreatorUser != null ? entity.CreatorUser.FirstName : null,
                 OpponentUsername = entity.OpponentUser != null ? entity.OpponentUser.FirstName : null,
                 Board = entity.Board,
-                State = entity.State
+                State = entity.State,
+                Visibility = entity.Visibility
             };
 
         public static GameStatusOutput ToGameStatus(this Game entity)
@@ -42,7 +44,8 @@ namespace TicTacToe.Services.Mappings
                 CreatorUsername = entity.CreatorUser?.FirstName,
                 OpponentUsername = entity.OpponentUser?.FirstName,
                 Board = entity.Board,
-                State = entity.State
+                State = entity.State, 
+                Visibility = entity.Visibility
             };
         }
     }

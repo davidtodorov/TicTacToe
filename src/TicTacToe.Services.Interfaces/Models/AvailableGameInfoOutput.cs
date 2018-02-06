@@ -20,5 +20,7 @@ namespace TicTacToe.Services.Interfaces.Models
         public DateTime CreationDate { get; set; }
 
         public GameState State { get; set; }
+
+        public VisibilityType Visibility { get; set; }
     }
 }

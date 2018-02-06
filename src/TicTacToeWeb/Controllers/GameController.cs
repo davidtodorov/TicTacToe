@@ -48,7 +48,9 @@ namespace TicTacToeWeb.Controllers
 
             var gameCreationInput = new GameCreationInput()
             {
-                Name = input.Name
+                Name = input.Name,
+                Visibility = input.Visibility,
+                Password = input.Password
             };
 
             var createdGame = this.gameService.Create(gameCreationInput, this.User.Identity.GetUserId());
@@ -66,7 +68,14 @@ namespace TicTacToeWeb.Controllers
         {
             try
             {
-                this.gameService.Join(input.GameId, this.User.Identity.GetUserId());
+                var gameJoinInput = new GameJoinInput()
+                {
+                    GameId = input.GameId,
+                    Password =  input.Password
+                };
+
+                this.gameService.Join(gameJoinInput, this.User.Identity.GetUserId());
+
                 return this.Json(new {Success = true});
             }
             catch (Exception e)

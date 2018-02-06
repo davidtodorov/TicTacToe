@@ -62,7 +62,7 @@ namespace TicTacToe.ConsoleApp
                         Console.WriteLine("Enter valid number");
                     }
 
-                    return gameService.Join(availableGames[chosenGameId - 1].Id, userId).Id;
+                    return gameService.Join(new GameJoinInput() { GameId = availableGames[chosenGameId - 1].Id }, userId).Id;
                 }
             }
         }
