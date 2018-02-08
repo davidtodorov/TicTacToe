@@ -11,11 +11,11 @@ namespace TicTacToeWeb.ViewModels.Game
         [MaxLength(ValidationConstants.NAME_MAX_LENGTH)]
         public string Name { get; set; }
 
-        [MaxLength(30)]
+        [MinLength(ValidationConstants.PASSWORD_MIN_LENGTH), MaxLength(ValidationConstants.PASSWORD_MAX_LENGTH)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Range(1, 3)]
+        [Range(ValidationConstants.VISIBILITY_MIN_VALUE, ValidationConstants.VISIBILITY_MAX_VALUE)]
         public VisibilityType Visibility { get; set; } = VisibilityType.Public;
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

@@ -34,7 +34,7 @@ namespace TicTacToeWeb.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return View(new CreateGameViewModel());
         }
 
         [HttpPost]
@@ -93,18 +93,26 @@ namespace TicTacToeWeb.Controllers
         [HttpGet]
         public IActionResult Play(Guid id)
         {
-            var game = this.gameService.Status(id, User.Identity.GetUserId());
-
-            var statusGame = new GameStatusViewModel()
+            try
             {
-                Id = game.Id,
-                CreatorUsername = game.CreatorUsername,
-                OpponentUsername = game.OpponentUsername,
-                Board = game.Board,
-                State = game.State
-            };
+                var game = this.gameService.Status(id, User.Identity.GetUserId());
 
-            return View(statusGame);
+                var statusGame = new GameStatusViewModel()
+                {
+                    Id = game.Id,
+                    CreatorUsername = game.CreatorUsername,
+                    OpponentUsername = game.OpponentUsername,
+                    Board = game.Board,
+                    State = game.State
+                };
+
+                return View(statusGame);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+            
         }
 
         [HttpPost]

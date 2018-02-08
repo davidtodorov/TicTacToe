@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using TicTacToe.Models;
 
 namespace TicTacToeWeb.ViewModels.Game
 {
@@ -11,8 +12,10 @@ namespace TicTacToeWeb.ViewModels.Game
         [Required]
         public string UserId { get; set; }
 
+        [Range(ValidationConstants.ROW_COL_MIN_lENGTH, ValidationConstants.ROW_COL_MAX_lENGTH)]
         public int Row { get; set; }
 
+        [Range(ValidationConstants.ROW_COL_MIN_lENGTH, ValidationConstants.ROW_COL_MAX_lENGTH)]
         public int Col { get; set; }
     }
 }

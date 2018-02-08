@@ -1,5 +1,7 @@
 ﻿using System;
-using TicTacToeWeb.Extensions;
+using System.ComponentModel.DataAnnotations;
+using TicTacToe.Models;
+using TicTacToeWeb.Attributes;
 
 namespace TicTacToeWeb.ViewModels.Game
 {
@@ -8,6 +10,7 @@ namespace TicTacToeWeb.ViewModels.Game
         [NoEmptyGuid]
         public Guid GameId { get; set; }
 
+        [Range(ValidationConstants.PASSWORD_MIN_LENGTH, ValidationConstants.PASSWORD_MAX_LENGTH)]
         public string Password { get; set; }
     }
 }

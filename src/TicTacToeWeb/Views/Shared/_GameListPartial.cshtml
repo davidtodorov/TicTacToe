@@ -4,53 +4,51 @@
 @using TicTacToe.Models
 @model IList<AvailableGameInfoOutput>
     
-<div class="container">
 
-    <table class="table table-striped">
-        <thead class="container">
-        <tr class="row">
-            <th class="col-sm-1">#</th>
-            <th class="col-sm-2"> Description</th>
-            <th class="col-sm-1"> Creator</th>
-            <th class="col-sm-1"> Visibility</th>
-            <th class="col-sm-3"> Created On</th>
-            <th class="col-sm-3"> Status</th>
-            <th class="col-sm-1"> </th>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th style="width: 35px">#</th>
+        <th style="width: 135px"> Description</th>
+        <th style="width: 100px"> Creator</th>
+        <th style="width: 100px"> Visibility</th>
+        <th style="width: 135px"> Created On</th>
+        <th style="width: 135px"> Status</th>
+        <th style="width: 60px"> </th>
+    </tr>
+    </thead>
+
+    <tbody >
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <td style="max-width: 35px">@(i + 1)</td>
+            <td style="max-width: 135px">@Model[i].Name</td>
+            <td style="max-width: 100px">@Model[i].CreatorUsername</td>
+            <td style="max-width: 100px">@(Model[i].Visibility)</td>
+            <td style="max-width: 135px">@Model[i].CreationDate</td>
+            <td style="max-width: 135px">@(Model[i].State.GetAttribute<DisplayAttribute>().Name)</td>
+            <td style="max-width: 60px">
+                @if (Model[i].CreatorUserId == User.Identity.GetUserId() || Model[i].OpponentUserId == User.Identity.GetUserId())
+                {
+                    <a class="btn btn-primary btn-sm playButton" role="button" asp-area="" asp-controller="Game" asp-action="Play" asp-route-id="@Model[i].Id">Play</a>
+                }
+                else if (Model[i].CreatorUserId != User.Identity.GetUserId())
+                {
+                    if (Model[i].Visibility == VisibilityType.Protected)
+                    {
+                        <button class="btn btn-primary btn-sm openJoinGameWindow" role="button" game-id="@Model[i].Id">Join</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary btn-sm joinGameButton" role="button" game-id="@Model[i].Id">Join</button>
+                    }
+                }
+            </td>
         </tr>
-        </thead>
-
-        <tbody class="container">
-        @for (int i = 0; i < Model.Count; i++)
-        {
-            <tr class="row">
-                <td class="col-sm-1">@(i + 1)</td>
-                <td class="col-sm-2">@Model[i].Name</td>
-                <td class="col-sm-1">@Model[i].CreatorUsername</td>
-                <td class="col-sm-1">@(Model[i].Visibility)</td>
-                <td class="col-sm-3">@Model[i].CreationDate</td>
-                <td class="col-sm-3">@(Model[i].State.GetAttribute<DisplayAttribute>().Name)</td>
-                <td class="col-sm-1">
-                    @if (Model[i].CreatorUserId == User.Identity.GetUserId() || Model[i].OpponentUserId == User.Identity.GetUserId())
-                    {
-                        <a class="btn btn-primary btn-sm playButton" role="button" game-id="@Model[i].Id">Play</a>
-                    }
-                    else if (Model[i].CreatorUserId != User.Identity.GetUserId())
-                    {
-                        if (Model[i].Visibility == VisibilityType.Protected)
-                        {
-                            <button class="btn btn-primary btn-sm openJoinGameWindow" role="button" game-id="@Model[i].Id">Join</button>
-                        }
-                        else
-                        {
-                            <button class="btn btn-primary btn-sm joinGameButton" role="button" game-id="@Model[i].Id">Join</button>
-                        }
-                    }
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</div>
+    }
+    </tbody>
+</table>
 
 @section Scripts {
     <script src="~/js/games.js"></script>
