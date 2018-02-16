@@ -1,11 +1,15 @@
 .cell td {
     display: table-cell;
-    vertical-align: middle;
-    height: 85px;
+    height: 110px;
     width: auto;
 }
 
 .container-flex {
     display: table;
+    text-align: center;
+}
+
+.center-cell{
+    vertical-align: middle;
     text-align: center;
 }

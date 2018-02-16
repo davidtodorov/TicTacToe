@@ -8,10 +8,7 @@ namespace TicTacToeWeb.ViewModels.Game
     {
         [Required]
         public Guid GameId { get; set; }
-
-        [Required]
-        public string UserId { get; set; }
-
+        
         [Range(ValidationConstants.ROW_COL_MIN_lENGTH, ValidationConstants.ROW_COL_MAX_lENGTH)]
         public int Row { get; set; }
 

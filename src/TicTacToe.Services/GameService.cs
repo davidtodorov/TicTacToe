@@ -127,7 +127,8 @@ namespace TicTacToe.Services
                 throw new ValidationException("UserId cannot be null");
             }
 
-            var game = this.context.Games.Include(g => g.CreatorUser)
+            var game = this.context.Games
+                .Include(g => g.CreatorUser)
                 .Include(x => x.OpponentUser)
                 .Where(g => g.CreatorUserId == userId || g.OpponentUserId == userId)
                 .Where(g => g.State == GameState.CreatorTurn || g.State == GameState.OpponentTurn)
@@ -177,6 +178,14 @@ namespace TicTacToe.Services
             
             context.SaveChanges();
             return game.ToGameStatus();
+        }
+
+        public IList<GameScoresInfoOutput> GetScores()
+        {
+            var users = this.context.Users.Include(u => u.Scores).Select(GameMappings.ToGameScoresOutput).ToList();
+
+            //// Var scores = this.context.Scores.Where(s => s.Status == ScoreStatus.Draw);
+            return users;
         }
 
         public void ValidateGamePassword(VisibilityType visibility, string password, string gamePassword)

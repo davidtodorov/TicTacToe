@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using TicTacToe.Models;
 using TicTacToe.Services.Interfaces.Models;
@@ -32,6 +33,18 @@ namespace TicTacToe.Services.Mappings
                 Board = entity.Board,
                 State = entity.State,
                 Visibility = entity.Visibility
+            };
+
+        public static readonly Expression<Func<User, GameScoresInfoOutput>> ToGameScoresOutput =
+            entity => new GameScoresInfoOutput()
+            {
+                Username = entity.FirstName,
+                Wins = entity.Scores.Count(s => s.Status == ScoreStatus.Win),
+                Loses = entity.Scores.Count(s => s.Status == ScoreStatus.Loss),
+                Draws = entity.Scores.Count(s => s.Status == ScoreStatus.Draw),
+                Scores = 100 * entity.Scores.Count(s => s.Status == ScoreStatus.Win) 
+                         + 30 * entity.Scores.Count(s => s.Status == ScoreStatus.Draw) 
+                         + 15 * entity.Scores.Count(s => s.Status == ScoreStatus.Loss)
             };
 
         public static GameStatusOutput ToGameStatus(this Game entity)

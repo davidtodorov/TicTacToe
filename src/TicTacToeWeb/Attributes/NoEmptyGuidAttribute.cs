@@ -13,7 +13,7 @@ namespace TicTacToeWeb.Attributes
                 return false;
             }
 
-            return (Guid)value == Guid.Empty;
+            return (Guid)value != Guid.Empty;
         }
     }
 }

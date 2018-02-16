@@ -10,7 +10,7 @@ namespace TicTacToeWeb.ViewModels.Game
         [NoEmptyGuid]
         public Guid GameId { get; set; }
 
-        [Range(ValidationConstants.PASSWORD_MIN_LENGTH, ValidationConstants.PASSWORD_MAX_LENGTH)]
+        [MinLength(ValidationConstants.PASSWORD_MIN_LENGTH), MaxLength(ValidationConstants.PASSWORD_MAX_LENGTH)]
         public string Password { get; set; }
     }
 }

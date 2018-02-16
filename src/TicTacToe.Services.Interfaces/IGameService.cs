@@ -9,21 +9,21 @@ namespace TicTacToe.Services.Interfaces
         /// <summary>
         /// Gets all available games waiting for an opponent.
         /// </summary>
-        /// <param name="userId">The creator user's identifier searching for a game.</param>
+        /// <param name="userId">The user's identifier searching for a game.</param>
         /// <returns>A collection of all available games.</returns>
         ICollection<AvailableGameInfoOutput> GetAvailableGames(string userId);
 
         /// <summary>
         /// Gets all users' games.
         /// </summary>
-        /// <param name="userId">The creator user's identifier searching for a game.</param>
+        /// <param name="userId">The user's identifier searching for a game.</param>
         /// <returns>A collection of all available games.</returns>
         ICollection<AvailableGameInfoOutput> GetUserGamesInProgress(string userId);
 
         /// <summary>
         /// Gets all joined users' games.
         /// </summary>
-        /// <param name="userId">The opponent user's identifier searching for a game.</param>
+        /// <param name="userId">The user's identifier searching for a game.</param>
         /// <returns>A collection of all available games.</returns>
         ICollection<AvailableGameInfoOutput> GetUserJoinedGames(string userId);
 
@@ -39,7 +39,7 @@ namespace TicTacToe.Services.Interfaces
         /// Joins to a game session by given game's identifier.
         /// </summary>
         /// <param name="input">The game's input information.</param>
-        /// <param name="userId">The opponent user's identifier.</param>
+        /// <param name="userId">The user's identifier.</param>
         /// <returns>The status information about the game session.</returns>
         GameStatusOutput Join(GameJoinInput input, string userId);
 
@@ -60,5 +60,11 @@ namespace TicTacToe.Services.Interfaces
         /// <param name="col">The specified column.</param>
         /// <returns>The status information about the game session.</returns>
         GameStatusOutput Play(Guid gameId, string userId, int row, int col);
+
+        /// <summary>
+        /// Gets top 10 scores.
+        /// </summary>
+        /// <returns>A collection of all top 10 scores.</returns>
+        IList<GameScoresInfoOutput> GetScores();
     }
 }

@@ -40,6 +40,41 @@
             }
         });
     });
+
+    $('.game-grid-table td').on('click', function () {
+        var that = $(this);
+        var row = that.attr('row');
+        var col = that.attr('col');
+        var gameId = $('#hiddenGameId').val();
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.post("/game/play",
+            { GameId: gameId, Row: row, Col: col, __RequestVerificationToken: token },
+            function(result) {
+                if (result.success === true) {
+                    // status will be updated in 500ms
+                } else {
+                    toastr["error"](result.exception, "Error");
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": true,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                }
+            });
+    });
 });
 
 $('.visibility-type').change(function (e) {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,8 +20,10 @@ namespace TicTacToeWeb.Controllers
             this.gameService = gameService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
+
             var viewModel = new GameIndexViewModel()
             {
                 AvailableGames = this.gameService.GetAvailableGames(this.User.Identity.GetUserId()),
@@ -29,6 +32,27 @@ namespace TicTacToeWeb.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Status(Guid id)
+        {
+            try
+            {
+                var status = gameService.Status(id, User.Identity.GetUserId());
+
+                return this.Json(new { Success = true, status });
+            }
+            catch (Exception e)
+            {
+                var exceptionMessage = e is ValidationException || e is NotFoundException ? e.Message : "An error occured";
+
+                return this.Json(new
+                {
+                    Success = false,
+                    Exception = exceptionMessage
+                });
+            }
         }
 
         [HttpGet]
@@ -68,6 +92,11 @@ namespace TicTacToeWeb.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    throw new ValidationException(ModelState.Values.FirstOrDefault(x => x.Errors.Count > 0)?.Errors.FirstOrDefault()?.ErrorMessage);
+                }
+
                 var gameJoinInput = new GameJoinInput()
                 {
                     GameId = input.GameId,
@@ -119,16 +148,33 @@ namespace TicTacToeWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Play(PlayGameViewModel input)
         {
-            if (!ModelState.IsValid)
+           try
             {
-                return Redirect("/");
+                if (!ModelState.IsValid)
+                {
+                    throw new ValidationException(ModelState.Values.FirstOrDefault(x => x.Errors.Count > 0)?.Errors.FirstOrDefault()?.ErrorMessage);
+                }
+
+                this.gameService.Play(input.GameId, User.Identity.GetUserId(), input.Row, input.Col);
+                return this.Json(new {Success = true});
             }
+            catch (Exception e)
+            {
+                var exceptionMessage = e is ValidationException || e is NotFoundException ? e.Message : "An error occured";
 
-            this.gameService.Play(input.GameId, input.UserId, input.Row, input.Col);
-
-            return View();
+                return this.Json(new
+                {
+                    Success = false,
+                    Exception = exceptionMessage
+                });
+            }
         }
 
-
+        [HttpGet]
+        public IActionResult Scores()
+        {
+            var scoreList = this.gameService.GetScores().OrderByDescending(s => s.Scores).ToList();
+            return View(scoreList);
+        }
     }
 }
