@@ -7,7 +7,6 @@ using TicTacToe.Services.Exceptions;
 using TicTacToe.Services.Interfaces;
 using TicTacToe.Services.Interfaces.Models;
 using TicTacToeWeb.ViewModels.Game;
-
 namespace TicTacToeWeb.Controllers
 {
     [Authorize]
@@ -23,7 +22,6 @@ namespace TicTacToeWeb.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
             var viewModel = new GameIndexViewModel()
             {
                 AvailableGames = this.gameService.GetAvailableGames(this.User.Identity.GetUserId()),
@@ -35,24 +33,16 @@ namespace TicTacToeWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Status(Guid id)
+        public IActionResult GameList()
         {
-            try
+            var gameList = new GameIndexViewModel()
             {
-                var status = gameService.Status(id, User.Identity.GetUserId());
+                AvailableGames = this.gameService.GetAvailableGames(this.User.Identity.GetUserId()),
+                UserGamesInProgress = this.gameService.GetUserGamesInProgress(this.User.Identity.GetUserId()),
+                UserJoinedGames = this.gameService.GetUserJoinedGames(this.User.Identity.GetUserId())
+            };
 
-                return this.Json(new { Success = true, status });
-            }
-            catch (Exception e)
-            {
-                var exceptionMessage = e is ValidationException || e is NotFoundException ? e.Message : "An error occured";
-
-                return this.Json(new
-                {
-                    Success = false,
-                    Exception = exceptionMessage
-                });
-            }
+            return this.PartialView("_GamesPartial", gameList);
         }
 
         [HttpGet]
@@ -157,6 +147,28 @@ namespace TicTacToeWeb.Controllers
 
                 this.gameService.Play(input.GameId, User.Identity.GetUserId(), input.Row, input.Col);
                 return this.Json(new {Success = true});
+            }
+            catch (Exception e)
+            {
+                var exceptionMessage = e is ValidationException || e is NotFoundException ? e.Message : "An error occured";
+
+                return this.Json(new
+                {
+                    Success = false,
+                    Exception = exceptionMessage
+                });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Status(Guid id)
+        {
+            
+            try
+            {
+                var status = gameService.Status(id, User.Identity.GetUserId());
+
+                return this.Json(new { Success = true, status });
             }
             catch (Exception e)
             {

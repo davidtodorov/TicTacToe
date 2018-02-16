@@ -13,12 +13,6 @@ function updateGame() {
                 updateStatus(result.status.state);
             } 
         });
-
-    //$.get('/game/index', function(result) {
-    //    if (result.success === true) {
-    //        var status = result;
-    //    }
-    //});
 }
 
 function updateBoard(board) {
