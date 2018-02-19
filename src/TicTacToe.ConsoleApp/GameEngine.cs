@@ -67,6 +67,14 @@ namespace TicTacToe.ConsoleApp
             }
         }
 
+        public void EnterScores()
+        {
+            using (var context = new TicTacToeDbContextFactory().CreateDbContext())
+            {
+                var gameService = new GameService(context, new GameResultValidator());
+            }
+        }
+
         private void PrintBoard(string board)
         {
             var sb = new StringBuilder();

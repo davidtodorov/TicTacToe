@@ -196,7 +196,7 @@ namespace TicTacToe.Services
             }
         }
         
-        private void CheckGameResult(GameResult gameResult, Game game)
+        public void CheckGameResult(GameResult gameResult, Game game)
         {
             if (gameResult == GameResult.NotFinished)
             {
@@ -222,7 +222,7 @@ namespace TicTacToe.Services
             }
         }
 
-        private void CreateScore(Game game, string userId, ScoreStatus status)
+        public void CreateScore(Game game, string userId, ScoreStatus status)
         {
             var score = new Score()
             {

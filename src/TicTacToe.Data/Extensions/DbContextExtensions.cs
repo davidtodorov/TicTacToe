@@ -10,12 +10,12 @@ namespace TicTacToe.Data.Extensions
         public static bool AllMigrationsApplied(this DbContext context)
         {
             var applied = context.GetService<IHistoryRepository>()
-                                 .GetAppliedMigrations()
-                                 .Select(m => m.MigrationId);
+                .GetAppliedMigrations()
+                .Select(m => m.MigrationId);
 
             var total = context.GetService<IMigrationsAssembly>()
-                               .Migrations
-                               .Select(m => m.Key);
+                .Migrations
+                .Select(m => m.Key);
 
             return !total.Except(applied).Any();
         }
