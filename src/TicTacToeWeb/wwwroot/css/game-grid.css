@@ -1,7 +1,7 @@
 .cell td {
     display: table-cell;
     height: 110px;
-    width: auto;
+    width: 140px;
 }
 
 .container-flex {

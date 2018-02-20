@@ -51,7 +51,7 @@ namespace Seed._ConsoleApp
 
         public static void EnsureSeeded(TicTacToeDbContext context)
         {
-            for (int i = 1; i <= 100; i++)
+            for (int i = 1; i <= 500; i++)
             {
                 var rand = new Random();
                 var user1 = new User

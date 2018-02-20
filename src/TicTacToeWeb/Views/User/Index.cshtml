@@ -2,7 +2,8 @@
 
 @{
     ViewData["Title"] = "Users";
-    var userList = Model.AllUsers.ToList();
+    var userList = Model.AllUsers.OrderBy(u => u.RegistrationDate).ToList();
+    
 }
 
 <div class="container">

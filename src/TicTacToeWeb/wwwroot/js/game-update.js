@@ -25,7 +25,24 @@ function updateBoard(board) {
 }
 
 function updateStatus(status) {
-    var gameStatus = $('#gameStatus h3');
+    var gameStatus = $('h3#gameStatus ');
 
-    gameStatus.text = status;
+    if (status === 1) {
+        gameStatus.text("Status: Waiting for a second player");
+    }
+    else if (status === 2) {
+        gameStatus.text("Status: X turn");
+    }
+    else if (status === 3) {
+        gameStatus.text("Status: O turn");
+    }
+    else if (status === 4) {
+        gameStatus.text("Status: X won");
+    }
+    else if (status === 5) {
+        gameStatus.text("Status: O won");
+    }
+    else if (status === 6) {
+        gameStatus.text("Status: Draw");
+    }
 }
