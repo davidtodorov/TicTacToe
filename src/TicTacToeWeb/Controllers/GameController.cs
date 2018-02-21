@@ -185,7 +185,7 @@ namespace TicTacToeWeb.Controllers
         [HttpGet]
         public IActionResult Scores()
         {
-            var scoreList = this.gameService.GetScores().OrderByDescending(s => s.Scores).ToList();
+            var scoreList = this.gameService.GetScores().OrderByDescending(s => s.Scores).Take(10).ToList();
             return View(scoreList);
         }
     }

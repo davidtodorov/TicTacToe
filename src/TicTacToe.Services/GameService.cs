@@ -222,7 +222,7 @@ namespace TicTacToe.Services
             }
         }
 
-        public void CreateScore(Game game, string userId, ScoreStatus status)
+        private void CreateScore(Game game, string userId, ScoreStatus status)
         {
             var score = new Score()
             {

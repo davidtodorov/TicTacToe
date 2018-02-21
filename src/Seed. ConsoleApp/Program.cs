@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
+using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using TicTacToe.ConsoleApp.Configuration;
 using TicTacToe.Data;
 using TicTacToe.Data.Extensions;
 using TicTacToe.Models;
-using TicTacToe.Services;
 
 namespace Seed._ConsoleApp
 {
@@ -21,70 +20,84 @@ namespace Seed._ConsoleApp
                 Console.WriteLine("Database migrated...");
             }
 
+            context.ChangeTracker.AutoDetectChangesEnabled = false;
+
             EnsureSeeded(context);
-
-            var gameResultValidator = new GameResultValidator();
-            var gameService = new GameService(context, gameResultValidator);
-            var games = context.Games.ToList();
-
-            foreach (var game in games)
-            {
-                if (game.State == GameState.CreatorVictory)
-                {
-                    gameService.CreateScore(game, game.CreatorUserId, ScoreStatus.Win);
-                    gameService.CreateScore(game, game.OpponentUserId, ScoreStatus.Loss);
-                }
-                else if (game.State == GameState.OpponentVictory)
-                {
-                    gameService.CreateScore(game, game.CreatorUserId, ScoreStatus.Loss);
-                    gameService.CreateScore(game, game.OpponentUserId, ScoreStatus.Win);
-                }
-                else if (game.State == GameState.Draw)
-                {
-                    gameService.CreateScore(game, game.CreatorUserId, ScoreStatus.Draw);
-                    gameService.CreateScore(game, game.OpponentUserId, ScoreStatus.Draw);
-                }
-
-                context.SaveChanges();
-            }
         }
 
         public static void EnsureSeeded(TicTacToeDbContext context)
         {
-            for (int i = 1; i <= 500; i++)
+            var r = new Random();
+            var sw = Stopwatch.StartNew();
+
+            for (int j = 0; j <= 5000; j++)
             {
-                var rand = new Random();
-                var user1 = new User
+                var userCreator = new User
                 {
-                    FirstName = $"User{i}",
-                    LastName = "Ivanov",
+                    FirstName = $"Creator{j}",
+                    LastName = $"Ivanov"
                 };
 
-                var user2 = new User
+                var userOpponent = new User
                 {
-                    FirstName = $"User{i+1}",
-                    LastName = "Ivanov",
+                    FirstName = $"Opponent{j}",
+                    LastName = $"Ivanov"
                 };
 
-                context.Users.Add(user1);
-                context.Users.Add(user2);
-                context.SaveChanges();
+                context.Users.Add(userCreator);
+                context.Users.Add(userOpponent);
 
-                var userList = context.Users.ToList();
-                userList.Remove(user1);
-
-                var game = new Game
+                for (int i = 1; i <= 100; i++)
                 {
-                    Name = $"Game{i}",
-                    State = (GameState)rand.Next(4, 7),
-                    Visibility = VisibilityType.Public,
-                    CreatorUserId = user1.Id,
-                    OpponentUserId = userList[rand.Next(0, userList.Count)].Id
-                };
+                    var game = new Game()
+                    {
+                        Name = $"Game{i}",
+                        CreatorUserId = userCreator.Id,
+                        OpponentUserId = userOpponent.Id,
+                        Visibility = VisibilityType.Public,
+                        State = (GameState)r.Next(4, 7)
+                    };
 
-                context.Games.Add(game);
-                context.SaveChanges();
+                    context.Games.Add(game);
+
+                    if (game.State == GameState.CreatorVictory)
+                    {
+                        context.Scores.Add(CreateScore(game, game.CreatorUserId, ScoreStatus.Win));
+                        context.Scores.Add(CreateScore(game, game.OpponentUserId, ScoreStatus.Loss));
+                    }
+                    else if (game.State == GameState.OpponentVictory)
+                    {
+                        context.Scores.Add(CreateScore(game, game.CreatorUserId, ScoreStatus.Loss));
+                        context.Scores.Add(CreateScore(game, game.OpponentUserId, ScoreStatus.Win));
+                    }
+                    else if (game.State == GameState.Draw)
+                    {
+                        context.Scores.Add(CreateScore(game, game.CreatorUserId, ScoreStatus.Draw));
+                        context.Scores.Add(CreateScore(game, game.OpponentUserId, ScoreStatus.Draw));
+                    }
+                }
+
+                if (j % 100 == 0)
+                {
+                    context.SaveChanges();
+                    Console.WriteLine($"Step: {j}, Elapsed: {sw.Elapsed}");
+                    sw = Stopwatch.StartNew();
+                }
             }
+
+            context.SaveChanges();
+        }
+
+        private static Score CreateScore(Game game, string userId, ScoreStatus status)
+        {
+            var score = new Score()
+            {
+                Game = game,
+                UserId = userId,
+                Status = status
+            };
+
+            return score;
         }
     }
 }
