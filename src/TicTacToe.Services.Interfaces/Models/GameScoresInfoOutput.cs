@@ -10,6 +10,6 @@
 
         public int Draws { get; set; }
 
-        public int Scores { get; set; }
+        public int Points { get; set; }
     }
 }
