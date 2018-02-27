@@ -182,11 +182,13 @@ namespace TicTacToe.Services
 
         public IList<GameScoresInfoOutput> GetScores()
         {
-            var users = this.context.Users.Include(u => u.Scores)
-                .Select(GameMappings.ToGameScoresOutput)
-                .OrderByDescending(s => s.Points)
-                .Take(10)
-                .ToList();
+            this.context.ChangeTracker.AutoDetectChangesEnabled = false;
+
+            var users = this.context.Users.AsNoTracking()
+                                          .Select(GameMappings.ToGameScoresOutput)
+                                          .OrderByDescending(s => s.Wins)
+                                          .Take(10)
+                                          .ToList();
             
             return users;
         }

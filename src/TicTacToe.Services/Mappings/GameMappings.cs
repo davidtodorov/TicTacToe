@@ -41,11 +41,7 @@ namespace TicTacToe.Services.Mappings
                 Username = entity.Email,
                 Wins = entity.Scores.Count(s => s.Status == ScoreStatus.Win),
                 Loses = entity.Scores.Count(s => s.Status == ScoreStatus.Loss),
-                Draws = entity.Scores.Count(s => s.Status == ScoreStatus.Draw),
-
-                Points = 100 * entity.Scores.Count(s => s.Status == ScoreStatus.Win)
-                         + 30 * entity.Scores.Count(s => s.Status == ScoreStatus.Draw)
-                         + 15 * entity.Scores.Count(s => s.Status == ScoreStatus.Loss)
+                Draws = entity.Scores.Count(s => s.Status == ScoreStatus.Draw)
             };
 
         public static GameStatusOutput ToGameStatus(this Game entity)

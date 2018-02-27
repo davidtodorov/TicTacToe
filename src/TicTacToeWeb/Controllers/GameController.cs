@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using TicTacToe.Services.Exceptions;
 using TicTacToe.Services.Interfaces;
 using TicTacToe.Services.Interfaces.Models;
@@ -76,6 +77,14 @@ namespace TicTacToeWeb.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult Join(Guid id)
+        {
+            this.gameService.Join(new GameJoinInput() { GameId = id }, User.Identity.GetUserId());
+
+            return RedirectToAction(nameof(Play), new { id = id });
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Join(JoinGameViewModel input)
@@ -86,13 +95,14 @@ namespace TicTacToeWeb.Controllers
                 {
                     throw new ValidationException(ModelState.Values.FirstOrDefault(x => x.Errors.Count > 0)?.Errors.FirstOrDefault()?.ErrorMessage);
                 }
+                string url = Url.Action("Join", new RouteValueDictionary(new JoinGameViewModel() { GameId = input.GameId }));
 
                 var gameJoinInput = new GameJoinInput()
                 {
                     GameId = input.GameId,
                     Password =  input.Password
                 };
-
+        
                 this.gameService.Join(gameJoinInput, this.User.Identity.GetUserId());
 
                 return this.Json(new {Success = true});

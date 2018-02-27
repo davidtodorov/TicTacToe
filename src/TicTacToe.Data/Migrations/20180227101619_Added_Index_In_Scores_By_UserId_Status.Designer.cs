@@ -12,9 +12,10 @@ using TicTacToe.Models;
 namespace TicTacToe.Data.Migrations
 {
     [DbContext(typeof(TicTacToeDbContext))]
-    partial class TicTacToeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180227101619_Added_Index_In_Scores_By_UserId_Status")]
+    partial class Added_Index_In_Scores_By_UserId_Status
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

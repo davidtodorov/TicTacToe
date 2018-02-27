@@ -8,7 +8,7 @@ namespace TicTacToeWeb.ViewModels.Game
     public class CreateGameViewModel : IValidatableObject
     {
         [Required]
-        [MaxLength(ValidationConstants.NAME_MAX_LENGTH)]
+        [MinLength(ValidationConstants.NAME_MIN_LENGTH), MaxLength(ValidationConstants.NAME_MAX_LENGTH)]
         public string Name { get; set; }
 
         [MinLength(ValidationConstants.PASSWORD_MIN_LENGTH), MaxLength(ValidationConstants.PASSWORD_MAX_LENGTH)]

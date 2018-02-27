@@ -10,6 +10,6 @@
 
         public int Draws { get; set; }
 
-        public int Points { get; set; }
+        public int Points => Wins * 100 + Draws * 30 + Loses * 15;
     }
 }
