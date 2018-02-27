@@ -180,19 +180,6 @@ namespace TicTacToe.Services
             return game.ToGameStatus();
         }
 
-        public IList<GameScoresInfoOutput> GetScores()
-        {
-            this.context.ChangeTracker.AutoDetectChangesEnabled = false;
-
-            var users = this.context.Users.AsNoTracking()
-                                          .Select(GameMappings.ToGameScoresOutput)
-                                          .OrderByDescending(s => s.Wins)
-                                          .Take(10)
-                                          .ToList();
-            
-            return users;
-        }
-
         public void ValidateGamePassword(VisibilityType visibility, string password, string gamePassword)
         {
             if (visibility == VisibilityType.Protected && password != gamePassword)

@@ -60,11 +60,5 @@ namespace TicTacToe.Services.Interfaces
         /// <param name="col">The specified column.</param>
         /// <returns>The status information about the game session.</returns>
         GameStatusOutput Play(Guid gameId, string userId, int row, int col);
-
-        /// <summary>
-        /// Gets top 10 scores.
-        /// </summary>
-        /// <returns>A collection of all top 10 scores.</returns>
-        IList<GameScoresInfoOutput> GetScores();
     }
 }

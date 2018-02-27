@@ -25,8 +25,10 @@ namespace TicTacToeWeb
         {
             services.AddDbContext<TicTacToeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddScoped<ICacheService, MemoryCacheService>();
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IScoreService, ScoreService>();
             services.AddScoped<IGameResultValidator, GameResultValidator>();
 
             services.AddIdentity<User, IdentityRole>(options =>

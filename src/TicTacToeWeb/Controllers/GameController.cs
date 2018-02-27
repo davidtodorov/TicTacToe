@@ -191,12 +191,5 @@ namespace TicTacToeWeb.Controllers
                 });
             }
         }
-
-        [HttpGet]
-        public IActionResult Scores()
-        {
-            var scoreList = this.gameService.GetScores();
-            return View(scoreList);
-        }
     }
 }
