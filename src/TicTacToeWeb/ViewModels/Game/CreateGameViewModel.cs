@@ -26,8 +26,8 @@ namespace TicTacToeWeb.ViewModels.Game
                 {
                     new ValidationResult("The password is required for protected games.", new []{nameof(Password)})
                 };
-
             }
+
             return Enumerable.Empty<ValidationResult>();
         }
     }

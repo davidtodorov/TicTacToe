@@ -24,7 +24,12 @@ namespace TicTacToe.Services
             this.cacheService = cacheService;
         }
 
-       private IList<GameScoresInfoOutput> GetScores()
+       public IList<GameScoresInfoOutput> GetCachedScores()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private IList<GameScoresInfoOutput> GetScores()
         {
             var scores = this.context.Users.AsNoTracking()
                 .Select(GameMappings.ToGameScoresOutput)
@@ -33,11 +38,6 @@ namespace TicTacToe.Services
                 .ToList();
 
             return scores;
-        }
-
-        public IList<GameScoresInfoOutput> GetCachedScores()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

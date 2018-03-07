@@ -8,6 +8,7 @@ using TicTacToe.Services.Exceptions;
 using TicTacToe.Services.Interfaces;
 using TicTacToe.Services.Interfaces.Models;
 using TicTacToeWeb.ViewModels.Game;
+
 namespace TicTacToeWeb.Controllers
 {
     [Authorize]
@@ -74,7 +75,6 @@ namespace TicTacToeWeb.Controllers
             {
                 Id = createdGame.Id
             });
-
         }
 
         [HttpGet]
@@ -95,6 +95,7 @@ namespace TicTacToeWeb.Controllers
                 {
                     throw new ValidationException(ModelState.Values.FirstOrDefault(x => x.Errors.Count > 0)?.Errors.FirstOrDefault()?.ErrorMessage);
                 }
+
                 string url = Url.Action("Join", new RouteValueDictionary(new JoinGameViewModel() { GameId = input.GameId }));
 
                 var gameJoinInput = new GameJoinInput()
@@ -137,11 +138,10 @@ namespace TicTacToeWeb.Controllers
 
                 return View(statusGame);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return RedirectToAction("Index", "Error");
             }
-            
         }
 
         [HttpPost]
@@ -173,7 +173,6 @@ namespace TicTacToeWeb.Controllers
         [HttpGet]
         public IActionResult Status(Guid id)
         {
-            
             try
             {
                 var status = gameService.Status(id, User.Identity.GetUserId());

@@ -204,7 +204,7 @@ namespace TicTacToeWeb.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(ErrorController.Index), "Error");
+                return RedirectToAction(nameof(GameController.Index), "Game");
             }
         }
 

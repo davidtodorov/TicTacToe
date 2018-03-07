@@ -18,5 +18,7 @@
 
         public const int ROW_COL_MIN_lENGTH = 0;
         public const int ROW_COL_MAX_lENGTH = 2;
+
+        public const int PHOTO_URL_MAX_LENGTH = 1000;
     }
 }
