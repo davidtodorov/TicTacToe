@@ -71,11 +71,7 @@ namespace TicTacToeWeb.Controllers
 
             var createdGame = this.gameService.Create(gameCreationInput, this.User.Identity.GetUserId());
 
-            return RedirectToAction(nameof(Play), 
-                new
-            {
-                Id = createdGame.Id
-            });
+            return RedirectToAction(nameof(Play), new { Id = createdGame.Id });
         }
 
         [HttpGet]
@@ -113,11 +109,7 @@ namespace TicTacToeWeb.Controllers
             {
                 var exceptionMessage = e is ValidationException || e is NotFoundException ? e.Message : "An error occured";
                 
-                return this.Json(new
-                {
-                    Success = false,
-                    Exception = exceptionMessage
-                });
+                return this.Json(new { Success = false, Exception = exceptionMessage });
             }
         }
 
@@ -163,11 +155,7 @@ namespace TicTacToeWeb.Controllers
             {
                 var exceptionMessage = e is ValidationException || e is NotFoundException ? e.Message : "An error occured";
 
-                return this.Json(new
-                {
-                    Success = false,
-                    Exception = exceptionMessage
-                });
+                return this.Json(new { Success = false, Exception = exceptionMessage });
             }
         }
 
@@ -184,11 +172,7 @@ namespace TicTacToeWeb.Controllers
             {
                 var exceptionMessage = e is ValidationException || e is NotFoundException ? e.Message : "An error occured";
 
-                return this.Json(new
-                {
-                    Success = false,
-                    Exception = exceptionMessage
-                });
+                return this.Json(new { Success = false, Exception = exceptionMessage });
             }
         }
     }

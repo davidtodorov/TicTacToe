@@ -14,13 +14,9 @@ namespace TicTacToe.Services
 
         private readonly ICacheService cacheService;
 
-        public ScoreService(TicTacToeDbContext context)
+        public ScoreService(TicTacToeDbContext context, ICacheService cacheService)
         {
             this.context = context;
-        }
-
-        public ScoreService(ICacheService cacheService)
-        {
             this.cacheService = cacheService;
         }
 

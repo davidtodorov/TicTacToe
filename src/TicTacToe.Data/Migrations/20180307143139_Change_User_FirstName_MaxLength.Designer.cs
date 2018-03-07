@@ -12,9 +12,10 @@ using TicTacToe.Models;
 namespace TicTacToe.Data.Migrations
 {
     [DbContext(typeof(TicTacToeDbContext))]
-    partial class TicTacToeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180307143139_Change_User_FirstName_MaxLength")]
+    partial class Change_User_FirstName_MaxLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
