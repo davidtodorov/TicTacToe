@@ -13,7 +13,8 @@ namespace TicTacToe.Services.Mappings
                 Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                PhotoUrl = entity.PhotoUrl
+                PhotoUrl = entity.PhotoUrl,
+                RegistrationDate = entity.RegistrationDate
             };
 
         public static UserInfoOutput ToUserInfo(this User entity)
@@ -23,7 +24,8 @@ namespace TicTacToe.Services.Mappings
                 Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                PhotoUrl = entity.PhotoUrl
+                PhotoUrl = entity.PhotoUrl,
+                RegistrationDate = entity.RegistrationDate
             };
         }
     }

@@ -14,7 +14,7 @@ namespace TicTacToe.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid NotificationId { get; set; }
 
-        [Range(1, 2)]
+        [Range(ValidationConstants.NOTIFICATION_STATE_MIN_VALUE, ValidationConstants.NOTIFICATION_STATE_MAX_VALUE)]
         public NotificationState State { get; set; }
         
         public DateTime CreationDate { get; set; }

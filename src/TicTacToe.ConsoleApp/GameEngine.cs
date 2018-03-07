@@ -62,8 +62,16 @@ namespace TicTacToe.ConsoleApp
                         Console.WriteLine("Enter valid number");
                     }
 
-                    return gameService.Join(availableGames[chosenGameId - 1].Id, userId).Id;
+                    return gameService.Join(new GameJoinInput() { GameId = availableGames[chosenGameId - 1].Id }, userId).Id;
                 }
+            }
+        }
+
+        public void EnterScores()
+        {
+            using (var context = new TicTacToeDbContextFactory().CreateDbContext())
+            {
+                var gameService = new GameService(context, new GameResultValidator());
             }
         }
 

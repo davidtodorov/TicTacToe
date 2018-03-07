@@ -14,7 +14,7 @@ namespace TicTacToe.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ScoreId { get; set; }
 
-        [Range(1, 3)]
+        [Range(ValidationConstants.SCORE_STATUS_MIN_VALUE, ValidationConstants.SCORE_STATUS_MAX_VALUE)]
         public ScoreStatus Status { get; set; }
         
         [Required]

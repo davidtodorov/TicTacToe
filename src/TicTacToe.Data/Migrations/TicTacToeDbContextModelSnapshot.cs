@@ -143,8 +143,7 @@ namespace TicTacToe.Data.Migrations
                     b.Property<string>("CreatorUserId")
                         .IsRequired();
 
-                    b.Property<string>("HashedPassword")
-                        .HasMaxLength(50);
+                    b.Property<string>("HashedPassword");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -209,7 +208,7 @@ namespace TicTacToe.Data.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId", "Status");
 
                     b.ToTable("Scores");
                 });
@@ -231,7 +230,7 @@ namespace TicTacToe.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(30);
+                        .HasMaxLength(50);
 
                     b.Property<string>("LastName")
                         .IsRequired()

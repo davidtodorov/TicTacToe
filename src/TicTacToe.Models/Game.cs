@@ -7,8 +7,6 @@ namespace TicTacToe.Models
 {
     public class Game
     {
-        private string hashedPassword;
-
         public Game()
         {
             this.Board = "---------";
@@ -19,37 +17,24 @@ namespace TicTacToe.Models
         public Guid GameId { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MinLength(ValidationConstants.NAME_MIN_LENGTH)]
+        [MaxLength(ValidationConstants.NAME_MAX_LENGTH)]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(9, MinimumLength = 9)]        
+        [StringLength(ValidationConstants.GAMEBOARD_LENGTH, MinimumLength = ValidationConstants.GAMEBOARD_LENGTH)]        
         public string Board { get; set; }
-
-        [MaxLength(50)]
-        public string HashedPassword
-        {
-            get
-            {
-                return this.hashedPassword;
-            }
-
-            set
-            {
-                if (Visibility == VisibilityType.Protected)
-                {
-                    this.hashedPassword = value;
-                }                
-            }
-        }
+        
+        [Range(ValidationConstants.PASSWORD_MIN_LENGTH, ValidationConstants.PASSWORD_MAX_LENGTH)]
+        public string HashedPassword { get; set; }
         
         public DateTime CreationDate { get; set; }
 
         [Required]
-        [Range(1, 3)]
+        [Range(ValidationConstants.VISIBILITY_MIN_VALUE, ValidationConstants.VISIBILITY_MAX_VALUE)]
         public VisibilityType Visibility { get; set; }
 
-        [Range(1, 6)]
+        [Range(ValidationConstants.GAMESTATE_MIN_VALUE, ValidationConstants.GAMESTATE_MAX_VALUE)]
         public GameState State { get; set; }
 
         [Required]

@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0E22C13A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe.Services.UnitTests", "TicTacToe.Services.UnitTests\TicTacToe.Services.UnitTests.csproj", "{C7F6A67B-5F9B-46E5-A4CE-B843870AEA70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeWeb", "TicTacToeWeb\TicTacToeWeb.csproj", "{5BD1167A-C685-4BFE-BF40-22CDE721EA8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToeWeb", "TicTacToeWeb\TicTacToeWeb.csproj", "{5BD1167A-C685-4BFE-BF40-22CDE721EA8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

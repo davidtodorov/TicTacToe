@@ -1,4 +1,6 @@
-﻿namespace TicTacToe.Services.Interfaces.Models
+﻿using System;
+
+namespace TicTacToe.Services.Interfaces.Models
 {
     public class UserInfoOutput
     {
@@ -9,5 +11,7 @@
         public string LastName { get; set; }
 
         public string PhotoUrl { get; set; }
+
+        public DateTime RegistrationDate { get; set; }
     }
 }

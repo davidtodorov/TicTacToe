@@ -11,6 +11,8 @@ namespace TicTacToe.Services.Interfaces.Models
 
         public GameState State { get; set; }
 
+        public VisibilityType Visibility { get; set; }
+
         public string CreatorUserId { get; set; }
 
         public string CreatorUsername { get; set; }

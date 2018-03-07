@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TicTacToe.Data;
 using TicTacToe.Models;
+using TicTacToe.Services;
+using TicTacToe.Services.Interfaces;
 
 namespace TicTacToeWeb
 {
@@ -18,11 +21,24 @@ namespace TicTacToeWeb
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        public static void Main()
+        {
+            WebHost.CreateDefaultBuilder()
+                .UseStartup<Startup>()
+                .Build()
+                .Run();
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TicTacToeDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<ICacheService, MemoryCacheService>();
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IScoreService, ScoreService>();
+            services.AddScoped<IGameResultValidator, GameResultValidator>();
 
             services.AddIdentity<User, IdentityRole>(options =>
                 {
@@ -38,7 +54,6 @@ namespace TicTacToeWeb
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -49,7 +64,7 @@ namespace TicTacToeWeb
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
             }
 
             app.UseStaticFiles();
@@ -58,9 +73,7 @@ namespace TicTacToeWeb
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(name: "default", template: "{controller=Game}/{action=Index}/{id?}");
             });
         }
     }

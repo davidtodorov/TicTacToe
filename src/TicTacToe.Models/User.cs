@@ -14,14 +14,14 @@ namespace TicTacToe.Models
         }
 
         [Required]
-        [MaxLength(30)]
+        [MaxLength(ValidationConstants.NAME_MAX_LENGTH)]
         public string FirstName { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(ValidationConstants.NAME_MAX_LENGTH)]
         public string LastName { get; set; }
 
-        [MaxLength(1000)]
+        [MaxLength(ValidationConstants.PHOTO_URL_MAX_LENGTH)]
         public string PhotoUrl { get; set; }
 
         public DateTime RegistrationDate { get; set; }

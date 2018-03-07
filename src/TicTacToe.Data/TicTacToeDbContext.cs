@@ -22,6 +22,8 @@ namespace TicTacToe.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Score>().HasIndex(x => new { x.UserId, x.Status });
+
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
