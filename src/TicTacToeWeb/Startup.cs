@@ -21,25 +21,35 @@ namespace TicTacToeWeb
 
         public IConfiguration Configuration { get; }
 
+        public static void Main()
+        {
+            WebHost.CreateDefaultBuilder()
+                .UseStartup<Startup>()
+                .Build()
+                .Run();
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TicTacToeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
+            services.AddDbContext<TicTacToeDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<ICacheService, MemoryCacheService>();
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IScoreService, ScoreService>();
             services.AddScoped<IGameResultValidator, GameResultValidator>();
 
             services.AddIdentity<User, IdentityRole>(options =>
-            {
-                options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 3;
-            })
-            .AddEntityFrameworkStores<TicTacToeDbContext>()
-            .AddDefaultTokenProviders();
+                {
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredLength = 3;
+                })
+                .AddEntityFrameworkStores<TicTacToeDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMvc();
         }
@@ -65,14 +75,6 @@ namespace TicTacToeWeb
             {
                 routes.MapRoute(name: "default", template: "{controller=Game}/{action=Index}/{id?}");
             });
-        }
-
-        public static void Main(string[] args)
-        {
-            WebHost.CreateDefaultBuilder(args)
-                   .UseStartup<Startup>()
-                   .Build()
-                   .Run();
         }
     }
 }

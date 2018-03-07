@@ -143,7 +143,7 @@ namespace TicTacToeWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName};
+                var user = new User { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
 
                 var result = await userManager.CreateAsync(user, model.Password);
 
@@ -186,8 +186,6 @@ namespace TicTacToeWeb.Controllers
             return View();
         }
 
-        #region Helpers
-
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -207,7 +205,5 @@ namespace TicTacToeWeb.Controllers
                 return RedirectToAction(nameof(GameController.Index), "Game");
             }
         }
-
-        #endregion
     }
 }

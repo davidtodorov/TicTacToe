@@ -71,7 +71,8 @@ namespace TicTacToeWeb.Controllers
 
             var createdGame = this.gameService.Create(gameCreationInput, this.User.Identity.GetUserId());
 
-            return RedirectToAction(nameof(Play), new
+            return RedirectToAction(nameof(Play), 
+                new
             {
                 Id = createdGame.Id
             });
@@ -101,12 +102,12 @@ namespace TicTacToeWeb.Controllers
                 var gameJoinInput = new GameJoinInput()
                 {
                     GameId = input.GameId,
-                    Password =  input.Password
+                    Password = input.Password
                 };
         
                 this.gameService.Join(gameJoinInput, this.User.Identity.GetUserId());
 
-                return this.Json(new {Success = true});
+                return this.Json(new { Success = true });
             }
             catch (Exception e)
             {
@@ -156,7 +157,7 @@ namespace TicTacToeWeb.Controllers
                 }
 
                 this.gameService.Play(input.GameId, User.Identity.GetUserId(), input.Row, input.Col);
-                return this.Json(new {Success = true});
+                return this.Json(new { Success = true });
             }
             catch (Exception e)
             {

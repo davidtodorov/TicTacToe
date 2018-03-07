@@ -24,12 +24,7 @@ namespace TicTacToe.Services
             this.cacheService = cacheService;
         }
 
-       public IList<GameScoresInfoOutput> GetCachedScores()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private IList<GameScoresInfoOutput> GetScores()
+        public IList<GameScoresInfoOutput> GetScores()
         {
             var scores = this.context.Users.AsNoTracking()
                 .Select(GameMappings.ToGameScoresOutput)

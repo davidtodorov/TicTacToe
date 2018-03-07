@@ -17,8 +17,8 @@ namespace TicTacToeWeb.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            //var scoreList = this.scoreService.GetScores();
-            return View();
+            var scoreList = this.scoreService.GetScores();
+            return View(scoreList);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace TicTacToe.Models
         public string FirstName { get; set; }
 
         [Required]
-        [MaxLength(ValidationConstants.NAME_MIN_LENGTH)]
+        [MaxLength(ValidationConstants.NAME_MAX_LENGTH)]
         public string LastName { get; set; }
 
         [MaxLength(ValidationConstants.PHOTO_URL_MAX_LENGTH)]

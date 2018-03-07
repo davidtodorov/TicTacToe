@@ -16,6 +16,12 @@
         public const int GAMESTATE_MIN_VALUE = 1;
         public const int GAMESTATE_MAX_VALUE = 6;
 
+        public const int NOTIFICATION_STATE_MIN_VALUE = 1;
+        public const int NOTIFICATION_STATE_MAX_VALUE = 2;
+
+        public const int SCORE_STATUS_MIN_VALUE = 1;
+        public const int SCORE_STATUS_MAX_VALUE = 3;
+        
         public const int ROW_COL_MIN_lENGTH = 0;
         public const int ROW_COL_MAX_lENGTH = 2;
 
