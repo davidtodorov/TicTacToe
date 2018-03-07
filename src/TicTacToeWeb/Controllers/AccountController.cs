@@ -170,7 +170,7 @@ namespace TicTacToeWeb.Controllers
 
             logger.LogInformation("User logged out.");
 
-            return RedirectToAction(nameof(ErrorController.Index), "Error");
+            return RedirectToAction(nameof(AccountController.Login), "Account");
         }
 
         [HttpGet]

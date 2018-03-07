@@ -12,22 +12,32 @@ namespace TicTacToe.Services
     {
         private readonly TicTacToeDbContext context;
 
+        private readonly ICacheService cacheService;
+
         public ScoreService(TicTacToeDbContext context)
         {
             this.context = context;
         }
 
-        public IList<GameScoresInfoOutput> GetScores()
+        public ScoreService(ICacheService cacheService)
         {
-            this.context.ChangeTracker.AutoDetectChangesEnabled = false;
+            this.cacheService = cacheService;
+        }
 
-            var users = this.context.Users.AsNoTracking()
+       private IList<GameScoresInfoOutput> GetScores()
+        {
+            var scores = this.context.Users.AsNoTracking()
                 .Select(GameMappings.ToGameScoresOutput)
                 .OrderByDescending(s => s.Wins)
                 .Take(10)
                 .ToList();
 
-            return users;
+            return scores;
+        }
+
+        public IList<GameScoresInfoOutput> GetCachedScores()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
