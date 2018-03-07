@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TicTacToe.Services.Interfaces;
 using TicTacToeWeb.ViewModels.User;
 
 namespace TicTacToeWeb.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserService userService;

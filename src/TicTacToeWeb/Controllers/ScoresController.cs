@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TicTacToe.Services.Interfaces;
 
 namespace TicTacToeWeb.Controllers
 {
+    [Authorize]
     public class ScoresController : Controller
     {
         private readonly IScoreService scoreService;

@@ -7,8 +7,6 @@ namespace TicTacToe.Models
 {
     public class Game
     {
-        private string hashedPassword;
-
         public Game()
         {
             this.Board = "---------";
