@@ -10,7 +10,7 @@ function updateGame() {
         function (result) {
             if (result.success === true) {
                 updateBoard(result.status.board);
-                updateStatus(result.status.state);
+                updateStatus(result.status);
             } 
         });
 }
@@ -27,22 +27,28 @@ function updateBoard(board) {
 function updateStatus(status) {
     var gameStatus = $('h3#gameStatus ');
 
-    if (status === 1) {
+    if (status.state != 1)
+    {
+        var players = $('h3#pvsp');
+        players.text(status.creatorUsername + "[X] vs " + status.opponentUsername + "[O]");
+    }
+
+    if (status.state === 1) {
         gameStatus.text("Status: Waiting for a second player");
     }
-    else if (status === 2) {
+    else if (status.state === 2) {
         gameStatus.text("Status: X turn");
     }
-    else if (status === 3) {
+    else if (status.state === 3) {
         gameStatus.text("Status: O turn");
     }
-    else if (status === 4) {
+    else if (status.state === 4) {
         gameStatus.text("Status: X won");
     }
-    else if (status === 5) {
+    else if (status.state === 5) {
         gameStatus.text("Status: O won");
     }
-    else if (status === 6) {
+    else if (status.state === 6) {
         gameStatus.text("Status: Draw");
     }
 }

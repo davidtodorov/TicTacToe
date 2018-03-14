@@ -13,7 +13,11 @@
     <div class="col-md-4 col-md-push-4 col-sm-6 col-sm-push-3 col-xs-6 col-xs-push-3">
         @if (Model.State != GameState.WaitingForASecondPlayer)
         {
-            <h3>@(Model.CreatorUsername)[X] vs @(Model.OpponentUsername)[O]</h3>
+            <h3 id="pvsp">@(Model.CreatorUsername)[X] vs @(Model.OpponentUsername)[O]</h3>
+        }
+        else
+        {
+            <h3 id="pvsp"></h3>
         }
         <table class="table table-bordered table-hover cell game-grid-table">
             <thead >

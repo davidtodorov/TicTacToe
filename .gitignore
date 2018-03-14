@@ -290,3 +290,4 @@ __pycache__/
 *.Cache
 
 src/TicTacToeWeb/wwwroot/lib/
+package-lock.json
