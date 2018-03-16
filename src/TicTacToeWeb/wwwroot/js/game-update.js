@@ -25,6 +25,7 @@ function updateBoard(board) {
 }
 
 function updateStatus(status) {
+    $('.game-grid-table td').on('click');
     var gameStatus = $('h3#gameStatus ');
 
     if (status.state != 1)
@@ -35,6 +36,8 @@ function updateStatus(status) {
 
     if (status.state === 1) {
         gameStatus.text("Status: Waiting for a second player");
+        $('.game-grid-table').css('cursor', 'not-allowed');
+        $('.game-grid-table td').off('click');
     }
     else if (status.state === 2) {
         gameStatus.text("Status: X turn");
