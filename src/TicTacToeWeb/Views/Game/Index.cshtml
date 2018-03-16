@@ -4,20 +4,18 @@
     ViewData["Title"] = "Games";
 }
 
-<div class="container">
-    
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="text-center" >
-                <a class="btn btn-primary" style="margin-top: 20px" role="button"
-                   asp-area="" asp-controller="Game" asp-action="Create"> Create a game</a>
-            </div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="text-center">
+            <a class="btn btn-primary" style="margin-top: 20px" role="button"
+               asp-area="" asp-controller="Game" asp-action="Create">Create a game</a>
         </div>
     </div>
-    
-    <div id="game-list-container">
-        @await Html.PartialAsync("_GamesPartial", Model)
-    </div>
+</div>
+
+<div id="game-list-container">
+    @await Html.PartialAsync("_GamesPartial", Model)
 </div>
 
 <div class="modal fade" id="joinGameWindow" role="dialog">
