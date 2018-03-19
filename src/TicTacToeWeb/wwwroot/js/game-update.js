@@ -27,7 +27,7 @@ function updateBoard(board) {
 function updateStatus(status) {
     var gameStatus = $('h3#gameStatus ');
 
-    if (status.state != 1)
+    if (status.state !== 1)
     {
         var players = $('h3#pvsp');
         players.text(status.creatorUsername + "[X] vs " + status.opponentUsername + "[O]");
@@ -47,8 +47,10 @@ function updateStatus(status) {
     }
     else if (status.state === 5) {
         gameStatus.text("Status: O won");
+        return null;
     }
     else if (status.state === 6) {
         gameStatus.text("Status: Draw");
+        return null;
     }
 }
