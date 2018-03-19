@@ -14,5 +14,7 @@ namespace TicTacToeWeb.ViewModels.Game
         public string CreatorUsername { get; set; }
 
         public string OpponentUsername { get; set; }
+
+        public string UserId { get; set; }
     }
 }
