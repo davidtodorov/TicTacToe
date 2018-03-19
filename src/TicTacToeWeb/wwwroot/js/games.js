@@ -5,7 +5,7 @@
 
         $('#joinGameWindow #gamePassword').val('');
         $('#joinGameWindow .joinGameButton').attr('game-id', gameId);
-        $('#joinGameWindow').modal('toggle');
+        $('#joinGameWindow').modal('show');
     });
 
     $('body').on('click', '.joinGameButton', function () {
