@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    setInterval(updateList, 5050);
+    setInterval(updateList, 3850);
 });
 
 function updateList() {

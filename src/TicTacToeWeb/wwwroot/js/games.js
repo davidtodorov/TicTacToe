@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $('.openJoinGameWindow').on('click', function () {
+    $('body').on('click', '.openJoinGameWindow', function () {
         var that = $(this);
         var gameId = that.attr('game-id');
 

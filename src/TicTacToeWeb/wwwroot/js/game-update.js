@@ -11,6 +11,7 @@ function updateGame() {
             if (result.success === true) {
                 updateBoard(result.status.board);
                 updateStatus(result.status);
+                createNotification(result.status.state);
             } 
         });
 }
@@ -25,18 +26,20 @@ function updateBoard(board) {
 }
 
 
+function updatePlayerVsPlayer(status)
+{
+    if (status.state !== 1) {
+        var players = $('h3#pvsp');
+        players.text(status.creatorUsername + "[X] vs " + status.opponentUsername + "[O]");
+    }
+}
 
 function updateStatus(status) {
     $('.game-grid-table td').on('click');
     var gameStatus = $('h3#gameStatus ');
 
-    //this could be loaded only once
-    if (status.state !== 1)
-    {
-        var players = $('h3#pvsp');
-        players.text(status.creatorUsername + "[X] vs " + status.opponentUsername + "[O]");
-    }
-
+    updatePlayerVsPlayer(status);
+    
     if (status.state === 1) {
         gameStatus.text("Status: Waiting for a second player");
         forbidClick();
@@ -109,5 +112,12 @@ function allowClick(currentUserId) {
                     }
                 });
         });
+    }
+}
+
+function createNotification(state)
+{
+    if (state === 3 || state === 2) {
+        
     }
 }
