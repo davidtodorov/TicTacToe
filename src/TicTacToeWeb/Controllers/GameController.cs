@@ -126,7 +126,8 @@ namespace TicTacToeWeb.Controllers
                     CreatorUsername = game.CreatorUsername,
                     OpponentUsername = game.OpponentUsername,
                     Board = game.Board,
-                    State = game.State
+                    State = game.State,
+                    UserId = User.Identity.GetUserId()
                 };
 
                 return View(statusGame);
