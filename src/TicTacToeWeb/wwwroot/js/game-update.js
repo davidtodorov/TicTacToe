@@ -27,7 +27,6 @@ function updateBoard(board) {
     }
 }
 
-
 function updatePlayerVsPlayer(status) {
     if (status.state !== 1) {
         var players = $('h3#pvsp');
