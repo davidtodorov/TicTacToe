@@ -2,6 +2,8 @@
     setInterval(updateGame, 250);
 });
 
+var isShown = false;
+
 function updateGame() {
     var gameId = $('#hiddenGameId').val();
 
@@ -11,8 +13,8 @@ function updateGame() {
             if (result.success === true) {
                 updateBoard(result.status.board);
                 updateStatus(result.status);
-                createNotification(result.status.state);
-            } 
+                createNotification(result.status, isShown);
+            }
         });
 }
 
@@ -26,8 +28,7 @@ function updateBoard(board) {
 }
 
 
-function updatePlayerVsPlayer(status)
-{
+function updatePlayerVsPlayer(status) {
     if (status.state !== 1) {
         var players = $('h3#pvsp');
         players.text(status.creatorUsername + "[X] vs " + status.opponentUsername + "[O]");
@@ -39,7 +40,7 @@ function updateStatus(status) {
     var gameStatus = $('h3#gameStatus ');
 
     updatePlayerVsPlayer(status);
-    
+
     if (status.state === 1) {
         gameStatus.text("Status: Waiting for a second player");
         forbidClick();
@@ -78,46 +79,66 @@ function allowClick(currentUserId) {
     if (currentUserId === userId) {
         $('.game-grid-table').css('cursor', 'context-menu');
         $('.game-grid-table td').on('click',
-            function() {
+            function () {
                 var that = $(this);
                 var row = that.attr('row');
                 var col = that.attr('col');
                 var gameId = $('#hiddenGameId').val();
                 var token = $('input[name="__RequestVerificationToken"]').val();
 
-            $.post("/game/play",
-                { GameId: gameId, Row: row, Col: col, __RequestVerificationToken: token },
-                function(result) {
-                    if (result.success === true) {
-                        // status will be updated in 500ms
-                    } else {
-                        toastr["error"](result.exception, "Error");
-                        toastr.options = {
-                            "closeButton": false,
-                            "debug": false,
-                            "newestOnTop": false,
-                            "progressBar": true,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": true,
-                            "onclick": null,
-                            "showDuration": "300",
-                            "hideDuration": "1000",
-                            "timeOut": "5000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
+                $.post("/game/play",
+                    { GameId: gameId, Row: row, Col: col, __RequestVerificationToken: token },
+                    function (result) {
+                        if (result.success === true) {
+
+                        } else {
+                            toastr["error"](result.exception, "Error");
+                            toastr.options = {
+                                "closeButton": false,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": true,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": true,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            }
                         }
-                    }
-                });
-        });
+                    });
+            });
     }
 }
 
-function createNotification(state)
-{
-    if (state === 3 || state === 2) {
-        
+function createNotification(status, isShown) {
+    
+    if (status.state === 3 || status.state === 2) {
+        if (isShown === false) {
+            this.isShown = true;
+            toastr["info"]("Player: " + status.opponentUsername + " has joined!", "Notification");
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
     }
 }
