@@ -14,7 +14,7 @@ namespace TicTacToeWeb.ViewModels.Game
         [MinLength(ValidationConstants.PASSWORD_MIN_LENGTH), MaxLength(ValidationConstants.PASSWORD_MAX_LENGTH)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
+        
         [Range(ValidationConstants.VISIBILITY_MIN_VALUE, ValidationConstants.VISIBILITY_MAX_VALUE)]
         public VisibilityType Visibility { get; set; } = VisibilityType.Public;
 
