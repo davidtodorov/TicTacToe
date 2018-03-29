@@ -13,7 +13,7 @@ function updateGame() {
             if (result.success === true) {
                 updateBoard(result.status.board);
                 updateStatus(result.status);
-                createNotification(result.status, isShown);
+                //createNotification(result.status, isShown);
             }
         });
 }
