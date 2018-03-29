@@ -132,6 +132,7 @@ namespace TicTacToeWeb.Controllers
                 var statusGame = new GameStatusViewModel()
                 {
                     Id = game.Id,
+                    Name = game.Name,
                     CreatorUsername = game.CreatorUsername,
                     CreatorUserId = game.CreatorUserId,
                     OpponentUsername = game.OpponentUsername,
