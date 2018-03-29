@@ -26,6 +26,7 @@ namespace TicTacToe.Services.Mappings
             entity => new GameStatusOutput()
             {
                 Id = entity.GameId,
+                Name = entity.Name,
                 CreatorUserId = entity.CreatorUserId,
                 OpponentUserId = entity.OpponentUserId,
                 CreatorUsername = entity.CreatorUser != null ? entity.CreatorUser.FirstName : null,

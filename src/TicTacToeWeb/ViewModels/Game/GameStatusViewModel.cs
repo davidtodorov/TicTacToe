@@ -7,6 +7,8 @@ namespace TicTacToeWeb.ViewModels.Game
     {
         public Guid Id { get; set; }
 
+        public string Name { get; set; }
+
         public string Board { get; set; }
 
         public GameState State { get; set; }

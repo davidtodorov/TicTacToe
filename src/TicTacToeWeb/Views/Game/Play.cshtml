@@ -7,7 +7,7 @@
     bool IsPrivate = (Model.Visibility == VisibilityType.Private && Model.CreatorUserId == Model.UserId);
 }
 
-<h2>Play</h2>
+<h2>Play - @Model.Name</h2>
 <input type="hidden" value="@Model.Id" id="hiddenGameId"/>
 <input type="hidden" value="@Model.UserId" id="hiddenUserId"/>
 
