@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Routing;
 using TicTacToe.Services.Exceptions;
 using TicTacToe.Services.Interfaces;
@@ -77,9 +78,16 @@ namespace TicTacToeWeb.Controllers
         [HttpGet]
         public IActionResult Join(Guid id)
         {
-            this.gameService.Join(new GameJoinInput() { GameId = id }, User.Identity.GetUserId());
+            try
+            {
+                this.gameService.Join(new GameJoinInput() { GameId = id }, User.Identity.GetUserId());
 
-            return RedirectToAction(nameof(Play), new { id = id });
+                return RedirectToAction(nameof(Play), new { id = id });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("CustomError", "Error");
+            }
         }
 
         [HttpPost]
@@ -118,16 +126,20 @@ namespace TicTacToeWeb.Controllers
         {
             try
             {
+                var url = new UrlHelper(this.ControllerContext);
                 var game = this.gameService.Status(id, User.Identity.GetUserId());
 
                 var statusGame = new GameStatusViewModel()
                 {
                     Id = game.Id,
                     CreatorUsername = game.CreatorUsername,
+                    CreatorUserId = game.CreatorUserId,
                     OpponentUsername = game.OpponentUsername,
                     Board = game.Board,
                     State = game.State,
-                    UserId = User.Identity.GetUserId()
+                    Visibility = game.Visibility,
+                    UserId = User.Identity.GetUserId(),
+                    PrivateJoinLink = Url.Action("Join", "Game", new { id = game.Id }, Request.Scheme)
                 };
 
                 return View(statusGame);
